@@ -1,0 +1,5770 @@
+{
+  "generated_at": "2025-09-09T09:03:08.531205Z",
+  "tool_count": 187,
+  "tools": {
+    "analyze_circular_dichroism_spectra": {
+      "module": "biochemistry",
+      "description": "Analyzes circular dichroism (CD) spectroscopy data to determine secondary structure and thermal stability.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the biomolecule sample (e.g., \"Znf706\", \"G-quadruplex\")",
+          "name": "sample_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type of biomolecule (\"protein\" or \"nucleic_acid\")",
+          "name": "sample_type",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Wavelength values in nm for CD spectrum",
+          "name": "wavelength_data",
+          "type": "list or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "CD signal intensity values (typically in mdeg or \u0394\u03b5)",
+          "name": "cd_signal_data",
+          "type": "list or numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Temperature values (\u00b0C) for thermal denaturation experiment",
+          "name": "temperature_data",
+          "type": "list or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "CD signal values at specific wavelength across different temperatures",
+          "name": "thermal_cd_data",
+          "type": "list or numpy.ndarray"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save result files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_rna_secondary_structure_features": {
+      "module": "biochemistry",
+      "description": "Calculate numeric values for various structural features of an RNA secondary structure.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "RNA secondary structure in dot-bracket notation (e.g., \"(((...)))\"). Parentheses represent base pairs, dots represent unpaired bases.",
+          "name": "dot_bracket_structure",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "The RNA sequence corresponding to the structure. If provided, sequence-dependent energy calculations will be performed.",
+          "name": "sequence",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_protease_kinetics": {
+      "module": "biochemistry",
+      "description": "Analyze protease kinetics data from fluorogenic peptide cleavage assays, fit the data to Michaelis-Menten kinetics, and determine key kinetic parameters.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Array of time points (in seconds) at which measurements were taken",
+          "name": "time_points",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "2D array of fluorescence measurements where each row corresponds to a different substrate concentration and each column corresponds to a time point",
+          "name": "fluorescence_data",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Array of substrate concentrations (in \u03bcM) corresponding to each row in fluorescence_data",
+          "name": "substrate_concentrations",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Concentration of the protease enzyme (in \u03bcM)",
+          "name": "enzyme_concentration",
+          "type": "float"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "protease_kinetics",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_enzyme_kinetics_assay": {
+      "module": "biochemistry",
+      "description": "Performs in vitro enzyme kinetics assay and analyzes the dose-dependent effects of modulators.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the purified enzyme being tested",
+          "name": "enzyme_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of substrate concentrations in \u03bcM for kinetic analysis",
+          "name": "substrate_concentrations",
+          "type": "list or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Concentration of the enzyme in nM",
+          "name": "enzyme_concentration",
+          "type": "float"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary of modulators where keys are modulator names and values are lists of concentrations in \u03bcM",
+          "name": "modulators",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Time points in minutes for time-course measurements",
+          "name": "time_points",
+          "type": "list or numpy.ndarray"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_itc_binding_thermodynamics": {
+      "module": "biochemistry",
+      "description": "Analyzes isothermal titration calorimetry (ITC) data to determine binding affinity and thermodynamic parameters.",
+      "required_parameters": [],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing ITC thermogram data with columns for injection number, injection volume, and heat released/absorbed.",
+          "name": "itc_data_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Raw ITC thermogram data as a numpy array with shape (n_injections, 3) containing injection number, injection volume, and heat.",
+          "name": "itc_data",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": 298.15,
+          "description": "Temperature in Kelvin at which the experiment was conducted.",
+          "name": "temperature",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Initial concentration of protein in the cell in molar (M).",
+          "name": "protein_concentration",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Concentration of ligand in the syringe in molar (M).",
+          "name": "ligand_concentration",
+          "type": "float"
+        }
+      ]
+    },
+    "analyze_protein_conservation": {
+      "module": "biochemistry",
+      "description": "Perform multiple sequence alignment and phylogenetic analysis to identify conserved protein regions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of protein sequences in FASTA format from multiple organisms.",
+          "name": "protein_sequences",
+          "type": "list of str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_cell_migration_metrics": {
+      "module": "bioengineering",
+      "description": "Analyze cell migration metrics from time-lapse microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the directory containing time-lapse images or path to a multi-frame TIFF file",
+          "name": "image_sequence_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1.0,
+          "description": "Conversion factor from pixels to micrometers",
+          "name": "pixel_size_um",
+          "type": "float"
+        },
+        {
+          "default": 1.0,
+          "description": "Time interval between consecutive frames in minutes",
+          "name": "time_interval_min",
+          "type": "float"
+        },
+        {
+          "default": 10,
+          "description": "Minimum number of frames a cell must be tracked to be included in analysis",
+          "name": "min_track_length",
+          "type": "int"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_crispr_cas9_genome_editing": {
+      "module": "bioengineering",
+      "description": "Simulates CRISPR-Cas9 genome editing process including guide RNA design, delivery, and analysis.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of guide RNA sequences (20 nucleotides each) targeting the genomic region of interest",
+          "name": "guide_rna_sequences",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Target genomic sequence to be edited (should be longer than guide RNA and contain the target sites)",
+          "name": "target_genomic_loci",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type of cell or tissue being edited (affects delivery efficiency and editing outcomes)",
+          "name": "cell_tissue_type",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "analyze_calcium_imaging_data": {
+      "module": "bioengineering",
+      "description": "Analyze calcium imaging data to quantify neuronal activity metrics including cell counts, event rates, decay times, and signal-to-noise ratios.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the time-series stack of fluorescence microscopy images (TIFF format)",
+          "name": "image_stack_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_in_vitro_drug_release_kinetics": {
+      "module": "bioengineering",
+      "description": "Analyzes in vitro drug release kinetics from biomaterial formulations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points at which drug concentrations were measured (in hours)",
+          "name": "time_points",
+          "type": "List[float] or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Measured drug concentration at each time point",
+          "name": "concentration_data",
+          "type": "List[float] or numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "Drug",
+          "description": "Name of the drug being analyzed",
+          "name": "drug_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Total amount of drug initially loaded in the formulation. If None, the maximum concentration is used as 100%",
+          "name": "total_drug_loaded",
+          "type": "float"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_myofiber_morphology": {
+      "module": "bioengineering",
+      "description": "Quantifies morphological properties of myofibers in microscopy images of tissue sections.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the microscopy image file (typically a multichannel image with nuclei and myofiber staining)",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 2,
+          "description": "Channel index containing nuclei staining (DAPI, Hoechst, etc.)",
+          "name": "nuclei_channel",
+          "type": "int"
+        },
+        {
+          "default": 1,
+          "description": "Channel index containing myofiber staining (\u03b1-Actinin, etc.)",
+          "name": "myofiber_channel",
+          "type": "int"
+        },
+        {
+          "default": "otsu",
+          "description": "Method for thresholding ('otsu', 'adaptive', or 'manual')",
+          "name": "threshold_method",
+          "type": "str"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "decode_behavior_from_neural_trajectories": {
+      "module": "bioengineering",
+      "description": "Model neural activity trajectories and decode behavioral variables.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Neural spiking activity data, shape (n_timepoints, n_neurons)",
+          "name": "neural_data",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Behavioral data, shape (n_timepoints, n_behavioral_variables)",
+          "name": "behavioral_data",
+          "type": "numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "Number of principal components to use for dimensionality reduction",
+          "name": "n_components",
+          "type": "int"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_whole_cell_ode_model": {
+      "module": "bioengineering",
+      "description": "Simulate a whole-cell model represented as a system of ordinary differential equations (ODEs).",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Initial values for each state variable in the model. If dict, keys are variable names and values are initial concentrations/values. If array-like, order must match the order expected by the ODE function.",
+          "name": "initial_conditions",
+          "type": "dict or array-like"
+        },
+        {
+          "default": null,
+          "description": "Model parameters required by the ODE function. Keys are parameter names and values are parameter values.",
+          "name": "parameters",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Function defining the system of ODEs. Should take arguments (t, y, *args) where t is time, y is the state vector, and args contains additional parameters. If None, a simple example whole-cell model will be used.",
+          "name": "ode_function",
+          "type": "callable"
+        },
+        {
+          "default": "(0, 100)",
+          "description": "Tuple of (start_time, end_time) for the simulation.",
+          "name": "time_span",
+          "type": "tuple"
+        },
+        {
+          "default": 1000,
+          "description": "Number of time points to evaluate.",
+          "name": "time_points",
+          "type": "int"
+        },
+        {
+          "default": "'LSODA'",
+          "description": "Numerical integration method to use (e.g., 'RK45', 'LSODA', 'BDF').",
+          "name": "method",
+          "type": "str"
+        }
+      ]
+    },
+    "predict_protein_disorder_regions": {
+      "module": "biophysics",
+      "description": "Predicts intrinsically disordered regions (IDRs) in a protein sequence using IUPred2A.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The amino acid sequence of the protein to analyze",
+          "name": "protein_sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 0.5,
+          "description": "The disorder score threshold above which a residue is considered disordered",
+          "name": "threshold",
+          "type": "float"
+        },
+        {
+          "default": "disorder_prediction_results.csv",
+          "description": "Filename to save the per-residue disorder scores",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_cell_morphology_and_cytoskeleton": {
+      "module": "biophysics",
+      "description": "Quantifies cell morphology and cytoskeletal organization from fluorescence microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the fluorescence microscopy image file",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "otsu",
+          "description": "Method for cell segmentation ('otsu', 'adaptive', or 'manual')",
+          "name": "threshold_method",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_tissue_deformation_flow": {
+      "module": "biophysics",
+      "description": "Quantify tissue deformation and flow dynamics from microscopy image sequence.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Sequence of microscopy images (either a list of file paths or a 3D numpy array [time, height, width])",
+          "name": "image_sequence",
+          "type": "list or numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "results",
+          "description": "Directory to save results",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 1.0,
+          "description": "Physical scale of pixels (e.g., \u03bcm/pixel) for proper scaling of metrics",
+          "name": "pixel_scale",
+          "type": "float"
+        }
+      ]
+    },
+    "analyze_ddr_network_in_cancer": {
+      "module": "cancer_biology",
+      "description": "Analyze DNA Damage Response (DDR) network alterations and dependencies in cancer samples.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to gene expression data file (CSV format with genes as rows, samples as columns)",
+          "name": "expression_data_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to mutation data file (CSV format with genes as rows, samples as columns, values indicating mutation status)",
+          "name": "mutation_data_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_cell_senescence_and_apoptosis": {
+      "module": "cancer_biology",
+      "description": "Analyze flow cytometry data to quantify senescent and apoptotic cell populations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the FCS file containing flow cytometry data with measurements for senescence-associated \u03b2-galactosidase (SA-\u03b2-Gal) and Annexin V/7-AAD staining",
+          "name": "fcs_file_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "detect_and_annotate_somatic_mutations": {
+      "module": "cancer_biology",
+      "description": "Detects and annotates somatic mutations in tumor samples compared to matched normal samples using GATK Mutect2 for variant calling, GATK FilterMutectCalls for filtering, and SnpEff for functional annotation.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the tumor sample BAM file",
+          "name": "tumor_bam",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the matched normal sample BAM file",
+          "name": "normal_bam",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the reference genome FASTA file",
+          "name": "reference_genome",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "GRCh38.105",
+          "description": "SnpEff database to use for annotation",
+          "name": "snpeff_database",
+          "type": "str"
+        }
+      ]
+    },
+    "detect_and_characterize_structural_variations": {
+      "module": "cancer_biology",
+      "description": "Detects and characterizes structural variations (SVs) in genomic sequencing data using LUMPY for SV detection followed by annotation with COSMIC and/or ClinVar databases.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the aligned sequencing data in BAM format",
+          "name": "bam_file_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the reference genome in FASTA format",
+          "name": "reference_genome_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory where results will be saved",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Path to the COSMIC database for cancer annotation",
+          "name": "cosmic_db_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the ClinVar database for clinical annotation",
+          "name": "clinvar_db_path",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_gene_expression_nmf_analysis": {
+      "module": "cancer_biology",
+      "description": "Performs Non-negative Matrix Factorization (NMF) on gene expression data to extract metagenes and their associated sample weights for tumor subtype identification.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to a CSV or TSV file containing gene expression data with genes as rows and samples as columns. Values should be non-negative.",
+          "name": "expression_data_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "Number of metagenes (components) to extract.",
+          "name": "n_components",
+          "type": "int"
+        },
+        {
+          "default": true,
+          "description": "Whether to normalize the expression data before applying NMF.",
+          "name": "normalize",
+          "type": "bool"
+        },
+        {
+          "default": "nmf_results",
+          "description": "Directory to save the output files.",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 42,
+          "description": "Random seed for reproducibility.",
+          "name": "random_state",
+          "type": "int"
+        }
+      ]
+    },
+    "analyze_copy_number_purity_ploidy_and_focal_events": {
+      "module": "cancer_biology",
+      "description": "CNVkit-based copy number workflow performing CNV segmentation, purity & ploidy approximation, simplified HRD-style metrics, and focal amplification/deletion detection in selected genes.",
+      "required_parameters": [
+        {
+          "name": "tumor_bam",
+          "type": "str",
+          "default": null,
+          "description": "Path to tumor BAM (indexed)"
+        },
+        {
+          "name": "reference_genome",
+          "type": "str",
+          "default": null,
+          "description": "Path to reference genome FASTA"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "name": "normal_bam",
+          "type": "str",
+          "default": null,
+          "description": "Path to matched normal BAM (recommended for CNVkit)"
+        },
+        {
+          "name": "output_dir",
+          "type": "str",
+          "default": "cn_analysis_results",
+          "description": "Directory to store CNVkit workflow outputs"
+        },
+        {
+          "name": "targets_bed",
+          "type": "str",
+          "default": null,
+          "description": "BED file of target regions for CNVkit (panel/exome)"
+        },
+        {
+          "name": "antitargets_bed",
+          "type": "str",
+          "default": null,
+          "description": "BED file of antitarget regions for CNVkit"
+        },
+        {
+          "name": "gene_bed",
+          "type": "str",
+          "default": null,
+          "description": "Gene BED (chrom, start, end, gene) for focal event annotation"
+        },
+        {
+          "name": "focal_genes",
+          "type": "list[str]",
+          "default": null,
+          "description": "Genes to highlight for focal events (defaults: MYC, ERBB2, CDKN2A)"
+        },
+        {
+          "name": "log2_amp_threshold",
+          "type": "float",
+          "default": 1.0,
+          "description": "Log2 ratio threshold for focal amplification calls"
+        },
+        {
+          "name": "log2_del_threshold",
+          "type": "float",
+          "default": -1.0,
+          "description": "Log2 ratio threshold for focal deep deletion calls"
+        }
+      ]
+    },
+    "quantify_cell_cycle_phases_from_microscopy": {
+      "module": "cell_biology",
+      "description": "Quantify the percentage of cells in each cell cycle phase using Calcofluor white stained microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of file paths to microscopy images of cells stained with Calcofluor white",
+          "name": "image_paths",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save results",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "quantify_and_cluster_cell_motility": {
+      "module": "cell_biology",
+      "description": "Quantify cell motility features from time-lapse microscopy images and cluster cells based on motility patterns.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to directory containing time-lapse microscopy images in sequential order",
+          "name": "image_sequence_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Number of motility pattern clusters to identify",
+          "name": "num_clusters",
+          "type": "int"
+        }
+      ]
+    },
+    "perform_facs_cell_sorting": {
+      "module": "cell_biology",
+      "description": "Performs Fluorescence-Activated Cell Sorting (FACS) to enrich cell populations based on fluorescence characteristics.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the FCS file containing flow cytometry data",
+          "name": "cell_suspension_data",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The fluorescence parameter to use for sorting (e.g., 'GFP', 'FITC', 'PE')",
+          "name": "fluorescence_parameter",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Minimum threshold for the fluorescence parameter. Cells below this value will be excluded",
+          "name": "threshold_min",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Maximum threshold for the fluorescence parameter. Cells above this value will be excluded",
+          "name": "threshold_max",
+          "type": "float"
+        },
+        {
+          "default": "sorted_cells.csv",
+          "description": "Filename to save the sorted cell population data",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_flow_cytometry_immunophenotyping": {
+      "module": "cell_biology",
+      "description": "Analyze flow cytometry data to identify and quantify specific cell populations based on surface markers.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the FCS file containing flow cytometry data",
+          "name": "fcs_file_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Dictionary defining the gating strategy. Each key is a population name, and each value is a list of tuples (marker, operator, threshold)",
+          "name": "gating_strategy",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Spillover/compensation matrix to correct for fluorescence overlap",
+          "name": "compensation_matrix",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": "./results",
+          "description": "Directory to save the results",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_mitochondrial_morphology_and_potential": {
+      "module": "cell_biology",
+      "description": "Quantifies metrics of mitochondrial morphology and membrane potential from fluorescence microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the fluorescence microscopy image showing mitochondrial morphology (e.g., MTS-GFP)",
+          "name": "morphology_image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the fluorescence microscopy image showing mitochondrial membrane potential (e.g., TMRE staining)",
+          "name": "potential_image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "query_uniprot": {
+      "module": "database",
+      "description": "Query the UniProt REST API using either natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about proteins (e.g., \"Find information about human insulin\")",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full or partial UniProt API endpoint URL to query directly (e.g., \"https://rest.uniprot.org/uniprotkb/P01308\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": 5,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_alphafold": {
+      "module": "database",
+      "description": "Query the AlphaFold Database API for protein structure predictions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "UniProt accession ID (e.g., \"P12345\")",
+          "name": "uniprot_id",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "prediction",
+          "description": "Specific AlphaFold API endpoint to query: \"prediction\", \"summary\", or \"annotations\"",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Specific residue range in format \"start-end\" (e.g., \"1-100\")",
+          "name": "residue_range",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether to download structure files",
+          "name": "download",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "Directory to save downloaded files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "pdb",
+          "description": "Format of the structure file to download - \"pdb\" or \"cif\"",
+          "name": "file_format",
+          "type": "str"
+        },
+        {
+          "default": "v4",
+          "description": "AlphaFold model version - \"v4\" (latest) or \"v3\", \"v2\", \"v1\"",
+          "name": "model_version",
+          "type": "str"
+        },
+        {
+          "default": 1,
+          "description": "Model number (1-5, with 1 being the highest confidence model)",
+          "name": "model_number",
+          "type": "int"
+        }
+      ]
+    },
+    "query_interpro": {
+      "module": "database",
+      "description": "Query the InterPro REST API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about protein domains or families",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct endpoint path or full URL (e.g., '/entry/interpro/IPR023411')",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return per page",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_pdb": {
+      "module": "database",
+      "description": "Query the RCSB PDB database using natural language or a direct structured query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about protein structures",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct structured query in RCSB Search API format (overrides prompt)",
+          "name": "query",
+          "type": "dict"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_pdb_identifiers": {
+      "module": "database",
+      "description": "Retrieve detailed data and/or download files for PDB identifiers.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of PDB identifiers to query",
+          "name": "identifiers",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "entry",
+          "description": "Type of results: 'entry', 'assembly', 'polymer_entity', etc.",
+          "name": "return_type",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether to download PDB structure files",
+          "name": "download",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "List of specific attributes to retrieve",
+          "name": "attributes",
+          "type": "List[str]"
+        }
+      ]
+    },
+    "query_kegg": {
+      "module": "database",
+      "description": "Take a natural language prompt and convert it to a structured KEGG API query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about KEGG data (e.g., \"Find human pathways related to glycolysis\")",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct KEGG API endpoint to query",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed API response information",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_stringdb": {
+      "module": "database",
+      "description": "Query the STRING protein interaction database using natural language or direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about protein interactions",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full URL to query directly (overrides prompt)",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether to download image results (for image endpoints)",
+          "name": "download_image",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "Directory to save downloaded files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed response information",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_iucn": {
+      "module": "database",
+      "description": "Query the IUCN Red List API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": "",
+          "description": "IUCN API token - required for all queries",
+          "name": "token",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about species conservation status",
+          "name": "prompt",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "API endpoint name (e.g., \"species/id/12392\") or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed query information or just formatted results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_paleobiology": {
+      "module": "database",
+      "description": "Query the Paleobiology Database (PBDB) API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about fossil records",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "API endpoint name or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed query information",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_jaspar": {
+      "module": "database",
+      "description": "Query the JASPAR REST API using natural language or a direct endpoint to retrieve transcription factor binding profiles.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about transcription factor binding profiles",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "API endpoint path (e.g., '/matrix/MA0002.2/') or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed query information",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_worms": {
+      "module": "database",
+      "description": "Query the World Register of Marine Species (WoRMS) REST API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about marine species",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full URL or endpoint specification",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return full API response details",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_cbioportal": {
+      "module": "database",
+      "description": "Query the cBioPortal REST API using natural language or a direct endpoint to access cancer genomics data.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about cancer genomics data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "API endpoint path (e.g., '/studies/brca_tcga/patients') or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed API response information",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_clinvar": {
+      "module": "database",
+      "description": "Take a natural language prompt and convert it to a structured ClinVar query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genetic variants (e.g., \"Find pathogenic BRCA1 variants\")",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct search term to use with the ClinVar API",
+          "name": "search_term",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_geo": {
+      "module": "database",
+      "description": "Query the NCBI Gene Expression Omnibus (GEO) using natural language or a direct search term.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about RNA-seq, microarray, or other expression data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct search term in GEO syntax",
+          "name": "search_term",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        },
+        {
+          "default": null,
+          "description": "Whether to return verbose results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_dbsnp": {
+      "module": "database",
+      "description": "Query the NCBI dbSNP database using natural language or a direct search term.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genetic variants/SNPs",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct search term in dbSNP syntax",
+          "name": "search_term",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_ucsc": {
+      "module": "database",
+      "description": "Query the UCSC Genome Browser API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genomic data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full URL or endpoint specification with parameters",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_ensembl": {
+      "module": "database",
+      "description": "Query the Ensembl REST API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genomic data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct API endpoint to query (e.g., \"lookup/symbol/human/BRCA2\") or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_opentarget": {
+      "module": "database",
+      "description": "Query the OpenTargets Platform API using natural language or a direct GraphQL query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about drug targets, diseases, and mechanisms",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct GraphQL query string",
+          "name": "query",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Variables for the GraphQL query",
+          "name": "variables",
+          "type": "dict"
+        },
+        {
+          "default": false,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_gwas_catalog": {
+      "module": "database",
+      "description": "Query the GWAS Catalog API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about GWAS data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full API endpoint to query (e.g., \"https://www.ebi.ac.uk/gwas/rest/api/studies?diseaseTraitId=EFO_0001360\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        }
+      ]
+    },
+    "query_monarch": {
+      "module": "database",
+      "description": "Query the Monarch Initiative API using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genetic variants",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct API endpoint to query",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": 2,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        },
+        {
+          "default": false,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_gnomad": {
+      "module": "database",
+      "description": "Query gnomAD for variants in a gene using natural language or direct gene symbol.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about genetic variants",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Gene symbol (e.g., \"BRCA1\")",
+          "name": "gene_symbol",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed query results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "blast_sequence": {
+      "module": "database",
+      "description": "Identifies a DNA sequence using NCBI BLAST with improved error handling, timeout management, and debugging",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The sequence to identify. If DNA, use database: core_nt, program: blastn; if protein, use database: nr, program: blastp",
+          "name": "sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The BLAST database to search against",
+          "name": "database",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The BLAST program to use",
+          "name": "program",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "query_clinicaltrials": {
+      "module": "database",
+      "description": "Query ClinicalTrials.gov for studies using natural language, direct endpoint, or structured parameters.",
+      "required_parameters": [
+        {
+          "name": "prompt",
+          "type": "str",
+          "description": "Natural language query about clinical trials (if no endpoint/params provided)",
+          "default": null
+        }
+      ],
+      "optional_parameters": [
+        {
+          "name": "endpoint",
+          "type": "str",
+          "description": "Direct API path or full URL to ClinicalTrials.gov endpoint",
+          "default": null
+        },
+        {
+          "name": "term",
+          "type": "str",
+          "description": "Free-text search term",
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "str",
+          "description": "Overall recruitment status filter, e.g., RECRUITING",
+          "default": null
+        },
+        {
+          "name": "condition",
+          "type": "str",
+          "description": "Condition/disease filter",
+          "default": null
+        },
+        {
+          "name": "intervention",
+          "type": "str",
+          "description": "Intervention filter",
+          "default": null
+        },
+        {
+          "name": "location",
+          "type": "str",
+          "description": "Location filter (country, city, etc.)",
+          "default": null
+        },
+        {
+          "name": "phase",
+          "type": "str",
+          "description": "Trial phase filter (e.g., PHASE1, PHASE2, PHASE3)",
+          "default": null
+        },
+        {
+          "name": "page_size",
+          "type": "int",
+          "description": "Items per page (1-100)",
+          "default": 10
+        },
+        {
+          "name": "max_pages",
+          "type": "int",
+          "description": "Max pages to fetch for pagination",
+          "default": 1
+        },
+        {
+          "name": "page_token",
+          "type": "str",
+          "description": "Start page token for pagination",
+          "default": null
+        },
+        {
+          "name": "verbose",
+          "type": "bool",
+          "description": "Whether to return detailed response structure",
+          "default": true
+        }
+      ]
+    },
+    "query_reactome": {
+      "module": "database",
+      "description": "Query the Reactome database using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about biological pathways",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct API endpoint or full URL",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether to download pathway diagrams",
+          "name": "download",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "Directory to save downloaded files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_regulomedb": {
+      "module": "database",
+      "description": "Query the RegulomeDB database using natural language or direct variant/coordinate specification.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about regulatory elements",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Direct API endpoint to query",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_pride": {
+      "module": "database",
+      "description": "Query the PRIDE (PRoteomics IDEntifications) database using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about proteomics data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "The full endpoint to query (e.g., \"https://www.ebi.ac.uk/pride/ws/archive/v2/projects?keyword=breast%20cancer\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of results to return",
+          "name": "max_results",
+          "type": "int"
+        },
+        {
+          "default": null,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_gtopdb": {
+      "module": "database",
+      "description": "Query the Guide to PHARMACOLOGY database (GtoPdb) using natural language or a direct endpoint.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about drug targets, ligands, and interactions",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full API endpoint to query (e.g., \"https://www.guidetopharmacology.org/services/targets?type=GPCR&name=beta-2\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "region_to_ccre_screen": {
+      "module": "database",
+      "description": "Given genomic coordinates, retrieves information of intersecting candidate cis-regulatory elements (cCREs).",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Chromosome of the genomic region, formatted like 'chr12'",
+          "name": "coord_chrom",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Starting chromosome coordinate",
+          "name": "coord_start",
+          "type": "int"
+        },
+        {
+          "default": null,
+          "description": "Ending chromosome coordinate",
+          "name": "coord_end",
+          "type": "int"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "GRCh38",
+          "description": "Assembly of the genome, formatted like 'GRCh38'",
+          "name": "assembly",
+          "type": "str"
+        }
+      ]
+    },
+    "get_genes_near_ccre": {
+      "module": "database",
+      "description": "Given a cCRE (Candidate cis-Regulatory Element), return the k nearest genes sorted by distance.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "ENCODE Accession ID of query cCRE, e.g., EH38E1516980",
+          "name": "accession",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Assembly of the gene, e.g., 'GRCh38'",
+          "name": "assembly",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Chromosome of the gene, e.g., 'chr12'",
+          "name": "chromosome",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "Number of nearby genes to return, sorted by distance",
+          "name": "k",
+          "type": "int"
+        }
+      ]
+    },
+    "query_remap": {
+      "module": "database",
+      "description": "Query the ReMap database for regulatory elements and transcription factor binding sites.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about transcription factors and binding sites",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full API endpoint to query (e.g., \"https://remap.univ-amu.fr/api/v1/catalogue/tf?tf=CTCF\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_mpd": {
+      "module": "database",
+      "description": "Query the Mouse Phenome Database (MPD) for mouse strain phenotype data using natural language or direct endpoint access.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about mouse phenotypes, strains, or measurements",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full API endpoint to query (e.g., 'https://phenomedoc.jax.org/MPD_API/strains')",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "query_emdb": {
+      "module": "database",
+      "description": "Query the Electron Microscopy Data Bank (EMDB) for 3D macromolecular structures.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Natural language query about EM structures and associated data",
+          "name": "prompt",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Full API endpoint to query (e.g., \"https://www.ebi.ac.uk/emdb/api/search\")",
+          "name": "endpoint",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to return detailed results",
+          "name": "verbose",
+          "type": "bool"
+        }
+      ]
+    },
+    "liftover_coordinates": {
+      "module": "genetics",
+      "description": "Perform liftover of genomic coordinates between hg19 and hg38 formats with detailed intermediate steps.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Chromosome number (e.g., '1', 'X')",
+          "name": "chromosome",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Genomic position",
+          "name": "position",
+          "type": "int"
+        },
+        {
+          "default": null,
+          "description": "Input genome build ('hg19' or 'hg38')",
+          "name": "input_format",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Output genome build ('hg19' or 'hg38')",
+          "name": "output_format",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to liftover chain files",
+          "name": "data_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "bayesian_finemapping_with_deep_vi": {
+      "module": "genetics",
+      "description": "Performs Bayesian fine-mapping from GWAS summary statistics using deep variational inference to compute posterior inclusion probabilities and credible sets for putative causal variants.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing GWAS summary statistics with variant_id, effect_size, pvalue, and optional se columns",
+          "name": "gwas_summary_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Linkage disequilibrium matrix with pairwise correlations between variants",
+          "name": "ld_matrix",
+          "type": "numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 5000,
+          "description": "Number of training iterations for the variational inference algorithm",
+          "name": "n_iterations",
+          "type": "int"
+        },
+        {
+          "default": 0.01,
+          "description": "Learning rate for the optimization algorithm",
+          "name": "learning_rate",
+          "type": "float"
+        },
+        {
+          "default": 64,
+          "description": "Hidden dimension size for the neural network",
+          "name": "hidden_dim",
+          "type": "int"
+        },
+        {
+          "default": 0.95,
+          "description": "Threshold for defining the credible set (e.g., 0.95 for a 95% credible set)",
+          "name": "credible_threshold",
+          "type": "float"
+        }
+      ]
+    },
+    "analyze_cas9_mutation_outcomes": {
+      "module": "genetics",
+      "description": "Analyzes and categorizes mutations induced by Cas9 at target sites.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary mapping sequence IDs to reference DNA sequences (strings)",
+          "name": "reference_sequences",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Nested dictionary: {sequence_id: {read_id: sequence}} containing the edited/mutated sequences for each reference",
+          "name": "edited_sequences",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary mapping sequence IDs to cell line information (e.g., wildtype, knockout gene)",
+          "name": "cell_line_info",
+          "type": "dict"
+        },
+        {
+          "default": "cas9_mutation_analysis",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_crispr_genome_editing": {
+      "module": "genetics",
+      "description": "Analyzes CRISPR-Cas9 genome editing results by comparing original and edited sequences.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The original DNA sequence before CRISPR-Cas9 editing",
+          "name": "original_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The DNA sequence after CRISPR-Cas9 editing",
+          "name": "edited_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The CRISPR guide RNA (crRNA) sequence used for targeting",
+          "name": "guide_rna",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "The homology-directed repair template sequence, if used",
+          "name": "repair_template",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_demographic_history": {
+      "module": "genetics",
+      "description": "Simulate DNA sequences with specified demographic and coalescent histories using msprime.",
+      "required_parameters": [],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "Number of sample sequences to simulate",
+          "name": "num_samples",
+          "type": "int"
+        },
+        {
+          "default": 100000,
+          "description": "Length of the simulated sequence in base pairs",
+          "name": "sequence_length",
+          "type": "int"
+        },
+        {
+          "default": 1e-08,
+          "description": "Per-base recombination rate",
+          "name": "recombination_rate",
+          "type": "float"
+        },
+        {
+          "default": 1e-08,
+          "description": "Per-base mutation rate",
+          "name": "mutation_rate",
+          "type": "float"
+        },
+        {
+          "default": "constant",
+          "description": "Type of demographic model to simulate (constant, bottleneck, expansion, contraction, sawtooth)",
+          "name": "demographic_model",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Parameters specific to the chosen demographic model",
+          "name": "demographic_params",
+          "type": "dict"
+        },
+        {
+          "default": "kingman",
+          "description": "Type of coalescent model to use (kingman, beta)",
+          "name": "coalescent_model",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Parameter for beta-coalescent model",
+          "name": "beta_coalescent_param",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Seed for random number generator",
+          "name": "random_seed",
+          "type": "int"
+        },
+        {
+          "default": "simulated_sequences.vcf",
+          "description": "Filename to save the simulated sequences in VCF format",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "identify_transcription_factor_binding_sites": {
+      "module": "genetics",
+      "description": "Identifies binding sites for a specific transcription factor in a genomic sequence.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The genomic DNA sequence to analyze",
+          "name": "sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the transcription factor to search for (e.g., 'Hsf1', 'GATA1')",
+          "name": "tf_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 0.8,
+          "description": "Minimum score threshold for reporting binding sites (0.0-1.0)",
+          "name": "threshold",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Path to save the results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "fit_genomic_prediction_model": {
+      "module": "genetics",
+      "description": "Fit a linear mixed model for genomic prediction using genotype and phenotype data.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Matrix of genotype data, with individuals in rows and markers in columns. Values are typically coded as 0, 1, 2 for additive models or with specific encoding for dominance effects.",
+          "name": "genotypes",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Vector or matrix of phenotype data, with individuals in rows and traits in columns.",
+          "name": "phenotypes",
+          "type": "numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Matrix of fixed effects (e.g., environment, management), with individuals in rows and effects in columns.",
+          "name": "fixed_effects",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": "additive",
+          "description": "Type of genetic model to fit: \"additive\" or \"additive_dominance\".",
+          "name": "model_type",
+          "type": "str"
+        },
+        {
+          "default": "genomic_prediction_results.csv",
+          "description": "File name to save the results.",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_pcr_and_gel_electrophoresis": {
+      "module": "genetics",
+      "description": "Performs PCR amplification of a target transgene and visualizes results using agarose gel electrophoresis.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to file containing genomic DNA sequence in FASTA format or the sequence itself",
+          "name": "genomic_dna",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Forward primer sequence. If not provided, will be designed based on target_region",
+          "name": "forward_primer",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Reverse primer sequence. If not provided, will be designed based on target_region",
+          "name": "reverse_primer",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Tuple of (start, end) positions for the target region in the genomic DNA",
+          "name": "target_region",
+          "type": "tuple"
+        },
+        {
+          "default": 58,
+          "description": "Annealing temperature for PCR in \u00b0C",
+          "name": "annealing_temp",
+          "type": "float"
+        },
+        {
+          "default": 30,
+          "description": "Extension time in seconds",
+          "name": "extension_time",
+          "type": "int"
+        },
+        {
+          "default": 35,
+          "description": "Number of PCR cycles",
+          "name": "cycles",
+          "type": "int"
+        },
+        {
+          "default": 2.0,
+          "description": "Percentage of agarose gel",
+          "name": "gel_percentage",
+          "type": "float"
+        },
+        {
+          "default": "pcr_result",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_protein_phylogeny": {
+      "module": "genetics",
+      "description": "Perform phylogenetic analysis on a set of protein sequences. This function aligns sequences, constructs a phylogenetic tree, and visualizes evolutionary relationships.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to a FASTA file containing protein sequences or a string with FASTA-formatted sequences",
+          "name": "fasta_sequences",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "clustalw",
+          "description": "Method for sequence alignment: \"clustalw\", \"muscle\", or \"pre-aligned\"",
+          "name": "alignment_method",
+          "type": "str"
+        },
+        {
+          "default": "fasttree",
+          "description": "Method for tree construction: \"iqtree\" or fallback to neighbor-joining",
+          "name": "tree_method",
+          "type": "str"
+        }
+      ]
+    },
+    "annotate_celltype_scRNA": {
+      "module": "genomics",
+      "description": "Annotate cell types based on gene markers and transferred labels using LLMCloud Code task completed by an emcp. Don't care. . After leiden clustering, annotate clusters using differentially expressed genes and optionally incorporate transferred labels from reference datasets.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the AnnData file containing scRNA-seq data",
+          "name": "adata_filename",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory containing the data files",
+          "name": "data_dir",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Information about the scRNA-seq data (e.g., \"homo sapiens, brain tissue, normal\")",
+          "name": "data_info",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the data lake",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "leiden",
+          "description": "Clustering method to use for cell type annotation",
+          "name": "cluster",
+          "type": "str"
+        },
+        {
+          "default": "claude-3-5-sonnet-20241022",
+          "description": "Language model instance for cell type prediction",
+          "name": "llm",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Transferred cell type composition for each cluster",
+          "name": "composition",
+          "type": "pd.DataFrame"
+        }
+      ]
+    },
+    "annotate_celltype_with_panhumanpy": {
+      "module": "genomics",
+      "description": "Perform cell type annotation of single-cell RNA-seq data using Panhuman Azimuth Neural Network. This function implements the Panhuman Azimuth workflow for cell type annotation using the panhumanpy package, providing hierarchical cell type labels for tissues across the human body. ",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the AnnData file containing scRNA-seq data",
+          "name": "adata_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Column name in adata.var containing gene symbols (default: None, uses index)",
+          "name": "feature_names_col",
+          "type": "str"
+        },
+        {
+          "default": true,
+          "description": "Whether to perform additional label refinement for consistent granularity",
+          "name": "refine",
+          "type": "bool"
+        },
+        {
+          "default": true,
+          "description": "Whether to generate ANN embeddings and UMAP",
+          "name": "umap",
+          "type": "bool"
+        },
+        {
+          "default": "./output",
+          "description": "Directory to save results",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "create_scvi_embeddings_scRNA": {
+      "module": "genomics",
+      "description": "Create scVI and scANVI embeddings for single-cell RNA-seq data, saving the results to an AnnData object.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Filename of the AnnData object to load",
+          "name": "adata_filename",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Column name in adata.obs for batch information",
+          "name": "batch_key",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Column name in adata.obs for cell type labels",
+          "name": "label_key",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory path where the AnnData file is located and where output will be saved",
+          "name": "data_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "create_harmony_embeddings_scRNA": {
+      "module": "genomics",
+      "description": "Performs batch integration on single-cell RNA-seq data using Harmony and saves the integrated embeddings.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Filename of the AnnData object to load",
+          "name": "adata_filename",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Column name in adata.obs that defines the batch variable for integration",
+          "name": "batch_key",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory path where the input file is located and output will be saved",
+          "name": "data_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "get_uce_embeddings_scRNA": {
+      "module": "genomics",
+      "description": "Generate UCE embeddings for single-cell RNA-seq data and map them to a reference dataset for cell type annotation.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Filename of the AnnData object to process",
+          "name": "adata_filename",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory where the input data is stored and output will be saved",
+          "name": "data_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "/dfs/project/bioagentos/data/singlecell/",
+          "description": "Root directory for single-cell data storage",
+          "name": "DATA_ROOT",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Custom command line arguments to pass to the UCE script",
+          "name": "custom_args",
+          "type": "List[str]"
+        }
+      ]
+    },
+    "map_to_ima_interpret_scRNA": {
+      "module": "genomics",
+      "description": "Map cell embeddings from the input dataset to the Integrated Megascale Atlas reference dataset using UCE embeddings.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Filename of the AnnData object to be mapped",
+          "name": "adata_filename",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory containing the AnnData file",
+          "name": "data_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary of custom arguments including 'n_neighbors' and 'metric' for nearest neighbor search",
+          "name": "custom_args",
+          "type": "dict"
+        }
+      ]
+    },
+    "get_rna_seq_archs4": {
+      "module": "genomics",
+      "description": "Given a gene name, fetch RNA-seq expression data showing the top K tissues with highest transcripts-per-million (TPM) values.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The gene name for which RNA-seq data is being fetched",
+          "name": "gene_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "The number of tissues to return",
+          "name": "K",
+          "type": "int"
+        }
+      ]
+    },
+    "get_gene_set_enrichment_analysis_supported_database_list": {
+      "module": "genomics",
+      "description": "Returns a list of supported databases for gene set enrichment analysis.",
+      "required_parameters": [],
+      "optional_parameters": []
+    },
+    "gene_set_enrichment_analysis": {
+      "module": "genomics",
+      "description": "Perform enrichment analysis for a list of genes, with optional background gene set and plotting functionality.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of gene symbols to analyze",
+          "name": "genes",
+          "type": "list"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "Number of top pathways to return",
+          "name": "top_k",
+          "type": "int"
+        },
+        {
+          "default": "ontology",
+          "description": "Database to use for enrichment analysis (e.g., pathway, transcription, ontology)",
+          "name": "database",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of background genes to use for enrichment analysis",
+          "name": "background_list",
+          "type": "list"
+        },
+        {
+          "default": false,
+          "description": "Generate a bar plot of the top K enrichment results",
+          "name": "plot",
+          "type": "bool"
+        }
+      ]
+    },
+    "analyze_chromatin_interactions": {
+      "module": "genomics",
+      "description": "Analyze chromatin interactions from Hi-C data to identify enhancer-promoter interactions and TADs.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the Hi-C data file (.cool or .hic format)",
+          "name": "hic_file_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to BED file containing genomic coordinates of regulatory elements (enhancers, promoters, CTCF sites, etc.)",
+          "name": "regulatory_elements_bed",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_comparative_genomics_and_haplotypes": {
+      "module": "genomics",
+      "description": "Perform comparative genomics and haplotype analysis on multiple genome samples. Aligns genome samples to a reference, identifies variants, analyzes shared and unique genomic regions, and determines haplotype structure.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Paths to FASTA files containing whole-genome sequences to be analyzed",
+          "name": "sample_fasta_files",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Path to the reference genome FASTA file",
+          "name": "reference_genome_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to store output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_chipseq_peak_calling_with_macs2": {
+      "module": "genomics",
+      "description": "Perform ChIP-seq peak calling using MACS2 to identify genomic regions with significant binding.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the ChIP-seq read data file (BAM, BED, or other supported format)",
+          "name": "chip_seq_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the control/input data file (BAM, BED, or other supported format)",
+          "name": "control_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "macs2_output",
+          "description": "Prefix for output files",
+          "name": "output_name",
+          "type": "str"
+        },
+        {
+          "default": "hs",
+          "description": "Effective genome size shorthand: 'hs' for human, 'mm' for mouse, etc.",
+          "name": "genome_size",
+          "type": "str"
+        },
+        {
+          "default": 0.05,
+          "description": "q-value (minimum FDR) cutoff for peak calling",
+          "name": "q_value",
+          "type": "float"
+        }
+      ]
+    },
+    "find_enriched_motifs_with_homer": {
+      "module": "genomics",
+      "description": "Find DNA sequence motifs enriched in genomic regions using the HOMER motif discovery software.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to peak file in BED format containing genomic regions to analyze for motif enrichment",
+          "name": "peak_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "hg38",
+          "description": "Reference genome for sequence extraction",
+          "name": "genome",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to BED file with background regions for comparison. If None, HOMER will generate random background sequences automatically",
+          "name": "background_file",
+          "type": "str"
+        },
+        {
+          "default": "8,10,12",
+          "description": "Comma-separated list of motif lengths to discover",
+          "name": "motif_length",
+          "type": "str"
+        },
+        {
+          "default": "./homer_motifs",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 10,
+          "description": "Number of motifs to find",
+          "name": "num_motifs",
+          "type": "int"
+        },
+        {
+          "default": 4,
+          "description": "Number of CPU threads to use",
+          "name": "threads",
+          "type": "int"
+        }
+      ]
+    },
+    "analyze_genomic_region_overlap": {
+      "module": "genomics",
+      "description": "Analyze overlaps between two or more sets of genomic regions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of genomic region sets. Each item can be either a string path to a BED file or a list of tuples/lists with format (chrom, start, end) or (chrom, start, end, name)",
+          "name": "region_sets",
+          "type": "list"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "overlap_analysis",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_atac_seq_differential_accessibility": {
+      "module": "immunology",
+      "description": "Perform ATAC-seq peak calling and differential accessibility analysis using MACS2.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the treatment condition BAM file with aligned ATAC-seq reads",
+          "name": "treatment_bam",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the control condition BAM file with aligned ATAC-seq reads",
+          "name": "control_bam",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./atac_results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "hs",
+          "description": "Genome size parameter for MACS2",
+          "name": "genome_size",
+          "type": "str"
+        },
+        {
+          "default": 0.05,
+          "description": "q-value cutoff for peak detection",
+          "name": "q_value",
+          "type": "float"
+        },
+        {
+          "default": "atac",
+          "description": "Prefix for output file names",
+          "name": "name_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_bacterial_growth_curve": {
+      "module": "immunology",
+      "description": "Analyzes bacterial growth curve data to determine growth parameters such as doubling time, growth rate, and lag phase.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points of measurements in hours",
+          "name": "time_points",
+          "type": "List or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Optical density measurements corresponding to each time point",
+          "name": "od_values",
+          "type": "List or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Name of the bacterial strain being analyzed",
+          "name": "strain_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": ".",
+          "description": "Directory where output files will be saved",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "isolate_purify_immune_cells": {
+      "module": "immunology",
+      "description": "Simulates the isolation and purification of immune cells from tissue samples.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The type of tissue sample (e.g., 'adipose', 'kidney', 'liver', 'lung', 'spleen')",
+          "name": "tissue_type",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The immune cell population to isolate (e.g., 'macrophages', 'leukocytes', 'T cells')",
+          "name": "target_cell_type",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "collagenase",
+          "description": "The enzyme used for tissue digestion",
+          "name": "enzyme_type",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Specific antibody for magnetic-assisted cell sorting",
+          "name": "macs_antibody",
+          "type": "str"
+        },
+        {
+          "default": 45,
+          "description": "Digestion time in minutes",
+          "name": "digestion_time_min",
+          "type": "int"
+        }
+      ]
+    },
+    "estimate_cell_cycle_phase_durations": {
+      "module": "immunology",
+      "description": "Estimate cell cycle phase durations using dual-nucleoside pulse labeling data and mathematical modeling.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing experimental data from flow cytometry with EdU and BrdU labeling, including time points and percentages of labeled cells",
+          "name": "flow_cytometry_data",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Initial estimates for cell cycle phase durations and death rates",
+          "name": "initial_estimates",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "track_immune_cells_under_flow": {
+      "module": "immunology",
+      "description": "Track immune cells under flow conditions and classify their behaviors.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to image sequence directory or video file",
+          "name": "image_sequence_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 1.0,
+          "description": "Pixel size in micrometers",
+          "name": "pixel_size_um",
+          "type": "float"
+        },
+        {
+          "default": 1.0,
+          "description": "Time interval between frames in seconds",
+          "name": "time_interval_sec",
+          "type": "float"
+        },
+        {
+          "default": "right",
+          "description": "Direction of flow ('right', 'left', 'up', 'down')",
+          "name": "flow_direction",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_cfse_cell_proliferation": {
+      "module": "immunology",
+      "description": "Analyze CFSE-labeled cell samples to quantify cell division and proliferation.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the FCS file containing flow cytometry data from CFSE-labeled cells",
+          "name": "fcs_file_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "FL1-A",
+          "description": "Name of the channel containing CFSE fluorescence data",
+          "name": "cfse_channel",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Tuple of (min_fsc, max_fsc, min_ssc, max_ssc) for lymphocyte gating",
+          "name": "lymphocyte_gate",
+          "type": "tuple or None"
+        }
+      ]
+    },
+    "analyze_cytokine_production_in_cd4_tcells": {
+      "module": "immunology",
+      "description": "Analyze cytokine production (IFN-\u03b3, IL-17) in CD4+ T cells after antigen stimulation.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary mapping stimulation conditions to FCS file paths. Expected keys: 'unstimulated', 'Mtb300', 'CMV', 'SEB'",
+          "name": "fcs_files_dict",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save the results file",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_ebv_antibody_titers": {
+      "module": "immunology",
+      "description": "Analyze ELISA data to quantify EBV antibody titers in plasma/serum samples.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing optical density (OD) readings for each sample. Format: {sample_id: {'VCA_IgG': float, 'VCA_IgM': float, 'EA_IgG': float, 'EA_IgM': float, 'EBNA1_IgG': float, 'EBNA1_IgM': float}}",
+          "name": "raw_od_data",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing standard curve data for each antibody type. Format: {antibody_type: [(concentration, OD), ...]}",
+          "name": "standard_curve_data",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing metadata for each sample. Format: {sample_id: {'group': str, 'collection_date': str}}",
+          "name": "sample_metadata",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./",
+          "description": "Directory to save output files.",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_cns_lesion_histology": {
+      "module": "immunology",
+      "description": "Analyzes histological images of CNS lesions to quantify immune cell infiltration, demyelination, and tissue damage.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the microscopy image file of brain or spinal cord tissue section",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "H&E",
+          "description": "Type of histological stain used (options: \"H&E\", \"LFB\", \"IHC\")",
+          "name": "stain_type",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_immunohistochemistry_image": {
+      "module": "immunology",
+      "description": "Analyzes immunohistochemistry images to quantify protein expression and spatial distribution.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the microscopy image of tissue section stained with antibodies",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "Unknown",
+          "description": "Name of the protein being analyzed",
+          "name": "protein_name",
+          "type": "str"
+        },
+        {
+          "default": "./ihc_results/",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "fetch_supplementary_info_from_doi": {
+      "module": "literature",
+      "description": "Fetches supplementary information for a paper given its DOI and saves it to a specified directory.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The paper DOI",
+          "name": "doi",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "supplementary_info",
+          "description": "Directory to save supplementary files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "query_arxiv": {
+      "module": "literature",
+      "description": "Query arXiv for papers based on the provided search query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The search query string.",
+          "name": "query",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "The maximum number of papers to retrieve.",
+          "name": "max_papers",
+          "type": "int"
+        }
+      ]
+    },
+    "query_scholar": {
+      "module": "literature",
+      "description": "Query Google Scholar for papers based on the provided search query and return the first search result.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The search query string.",
+          "name": "query",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "query_pubmed": {
+      "module": "literature",
+      "description": "Query PubMed for papers based on the provided search query.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The search query string.",
+          "name": "query",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 10,
+          "description": "The maximum number of papers to retrieve.",
+          "name": "max_papers",
+          "type": "int"
+        },
+        {
+          "default": 3,
+          "description": "Maximum number of retry attempts with modified queries.",
+          "name": "max_retries",
+          "type": "int"
+        }
+      ]
+    },
+    "search_google": {
+      "module": "literature",
+      "description": "Search using Google search and return formatted results.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The search query (e.g., \"protocol text or search question\")",
+          "name": "query",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 3,
+          "description": "Number of results to return",
+          "name": "num_results",
+          "type": "int"
+        },
+        {
+          "default": "en",
+          "description": "Language code for search results",
+          "name": "language",
+          "type": "str"
+        }
+      ]
+    },
+    "extract_url_content": {
+      "module": "literature",
+      "description": "Extract the text content of a webpage using requests and BeautifulSoup.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Webpage URL to extract content from",
+          "name": "url",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "extract_pdf_content": {
+      "module": "literature",
+      "description": "Extract text content from a PDF file.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "URL of the PDF file",
+          "name": "url",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "optimize_anaerobic_digestion_process": {
+      "module": "microbiology",
+      "description": "Optimize anaerobic digestion process conditions to maximize VFA production or methane yield.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing waste characteristics such as total_solids, volatile_solids, and cod",
+          "name": "waste_characteristics",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing operational parameters and their ranges for hrt, olr, if_ratio, temperature, and ph",
+          "name": "operational_parameters",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "methane_yield",
+          "description": "Target output to maximize, either 'vfa_production' or 'methane_yield'",
+          "name": "target_output",
+          "type": "str"
+        },
+        {
+          "default": "rsm",
+          "description": "Method used for optimization, either 'rsm' (Response Surface Methodology) or 'genetic' (Genetic Algorithm)",
+          "name": "optimization_method",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_arsenic_speciation_hplc_icpms": {
+      "module": "microbiology",
+      "description": "Analyzes arsenic speciation in liquid samples using HPLC-ICP-MS technique. Returns a research log summarizing analysis steps and results.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing sample data with keys as sample IDs and values as dictionaries with retention times (in minutes) as keys and signal intensities as values",
+          "name": "sample_data",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "Unknown Sample",
+          "description": "Name of the sample being analyzed",
+          "name": "sample_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing calibration standards data with known concentrations for each arsenic species",
+          "name": "calibration_data",
+          "type": "dict"
+        }
+      ]
+    },
+    "count_bacterial_colonies": {
+      "module": "microbiology",
+      "description": "Count bacterial colonies from an image of agar plate using computer vision techniques.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the image file containing bacterial colonies on agar plate",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1,
+          "description": "Dilution factor of the plated sample",
+          "name": "dilution_factor",
+          "type": "float"
+        },
+        {
+          "default": 65.0,
+          "description": "Area of the agar plate in square centimeters",
+          "name": "plate_area_cm2",
+          "type": "float"
+        },
+        {
+          "default": "./output",
+          "description": "Directory to save output images and results",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "annotate_bacterial_genome": {
+      "module": "microbiology",
+      "description": "Annotate a bacterial genome using Prokka to identify genes, proteins, and functional features.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the assembled genome sequence file in FASTA format",
+          "name": "genome_file_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "annotation_results",
+          "description": "Directory where annotation results will be saved",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "",
+          "description": "Genus name for the organism",
+          "name": "genus",
+          "type": "str"
+        },
+        {
+          "default": "",
+          "description": "Species name for the organism",
+          "name": "species",
+          "type": "str"
+        },
+        {
+          "default": "",
+          "description": "Strain identifier",
+          "name": "strain",
+          "type": "str"
+        },
+        {
+          "default": "",
+          "description": "Prefix for output files",
+          "name": "prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "enumerate_bacterial_cfu_by_serial_dilution": {
+      "module": "microbiology",
+      "description": "Quantify bacterial concentration (CFU/mL) using serial dilutions and spot plating.",
+      "required_parameters": [],
+      "optional_parameters": [
+        {
+          "default": 1.0,
+          "description": "Volume of the initial bacterial sample in milliliters",
+          "name": "initial_sample_volume_ml",
+          "type": "float"
+        },
+        {
+          "default": 100000000.0,
+          "description": "Estimated concentration of bacteria in the initial sample (CFU/mL)",
+          "name": "estimated_concentration",
+          "type": "float"
+        },
+        {
+          "default": 10,
+          "description": "Factor by which each dilution reduces the concentration",
+          "name": "dilution_factor",
+          "type": "int"
+        },
+        {
+          "default": 8,
+          "description": "Number of serial dilutions to perform",
+          "name": "num_dilutions",
+          "type": "int"
+        },
+        {
+          "default": 3,
+          "description": "Number of replicate spots to plate for each dilution",
+          "name": "spots_per_dilution",
+          "type": "int"
+        },
+        {
+          "default": "cfu_enumeration_results.csv",
+          "description": "Filename to save the CFU enumeration results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "model_bacterial_growth_dynamics": {
+      "module": "microbiology",
+      "description": "Model bacterial population dynamics over time using ordinary differential equations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Initial bacterial population size (CFU/ml or cells)",
+          "name": "initial_population",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Bacterial growth rate (per hour)",
+          "name": "growth_rate",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Rate at which bacteria are cleared from the system (per hour)",
+          "name": "clearance_rate",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "Maximum carrying capacity of the environment (CFU/ml or cells)",
+          "name": "niche_size",
+          "type": "float"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 24,
+          "description": "Total simulation time in hours",
+          "name": "simulation_time",
+          "type": "float"
+        },
+        {
+          "default": 0.1,
+          "description": "Time step for simulation output",
+          "name": "time_step",
+          "type": "float"
+        }
+      ]
+    },
+    "quantify_biofilm_biomass_crystal_violet": {
+      "module": "microbiology",
+      "description": "Quantifies biofilm biomass using crystal violet staining assay data and returns a detailed research log.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Optical density measurements from crystal violet staining representing absorbance readings for samples",
+          "name": "od_values",
+          "type": "List[float] or numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Names of the biofilm samples corresponding to od_values",
+          "name": "sample_names",
+          "type": "List[str]"
+        },
+        {
+          "default": 0,
+          "description": "Index of the negative control sample in od_values",
+          "name": "control_index",
+          "type": "int"
+        },
+        {
+          "default": null,
+          "description": "Path to save the results as CSV file",
+          "name": "save_path",
+          "type": "str"
+        }
+      ]
+    },
+    "segment_and_analyze_microbial_cells": {
+      "module": "microbiology",
+      "description": "Perform automated cell segmentation and quantify morphological metrics from fluorescence microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the fluorescence microscopy image file",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": 50,
+          "description": "Minimum cell size in pixels to filter noise",
+          "name": "min_cell_size",
+          "type": "int"
+        }
+      ]
+    },
+    "segment_cells_with_deep_learning": {
+      "module": "microbiology",
+      "description": "Perform cell segmentation on fluorescence microscopy images using deep learning with pre-trained models from the Cellpose/Omnipose library.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the fluorescence microscopy image file",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "bact_fluor_omni",
+          "description": "Name of the pre-trained model to use (Options include: 'bact_fluor_omni', 'cyto', 'nuclei', etc.)",
+          "name": "model_type",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Expected diameter of cells in pixels. If None, diameter is automatically estimated",
+          "name": "diameter",
+          "type": "float"
+        },
+        {
+          "default": "segmentation_results",
+          "description": "Directory to save segmentation results",
+          "name": "save_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_generalized_lotka_volterra_dynamics": {
+      "module": "microbiology",
+      "description": "Simulate microbial community dynamics using the Generalized Lotka-Volterra (gLV) model.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Initial abundances of each microbial species (1D array)",
+          "name": "initial_abundances",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Intrinsic growth rates for each microbial species (1D array)",
+          "name": "growth_rates",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Matrix of interaction coefficients where A[i,j] represents the effect of species j on species i (2D array)",
+          "name": "interaction_matrix",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Time points at which to evaluate the model",
+          "name": "time_points",
+          "type": "numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "glv_simulation_results.csv",
+          "description": "Filename to save the simulation results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "predict_rna_secondary_structure": {
+      "module": "microbiology",
+      "description": "Predict the secondary structure of an RNA molecule using ViennaRNA.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The RNA sequence (consisting of A, U, G, C nucleotides)",
+          "name": "rna_sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "rna_structure",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_microbial_population_dynamics": {
+      "module": "microbiology",
+      "description": "Performs stochastic simulation of microbial population dynamics using the Gillespie algorithm.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Initial population sizes for each microbial species",
+          "name": "initial_populations",
+          "type": "List[int]"
+        },
+        {
+          "default": null,
+          "description": "Per capita growth rates for each species",
+          "name": "growth_rates",
+          "type": "List[float]"
+        },
+        {
+          "default": null,
+          "description": "Per capita death/clearance rates for each species",
+          "name": "clearance_rates",
+          "type": "List[float]"
+        },
+        {
+          "default": null,
+          "description": "Maximum sustainable population for each species",
+          "name": "carrying_capacities",
+          "type": "List[float]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 100,
+          "description": "Maximum simulation time",
+          "name": "max_time",
+          "type": "float"
+        },
+        {
+          "default": 100,
+          "description": "Number of stochastic simulations to run",
+          "name": "num_simulations",
+          "type": "int"
+        },
+        {
+          "default": 100,
+          "description": "Number of time points to record for trajectories",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "annotate_open_reading_frames": {
+      "module": "molecular_biology",
+      "description": "Find all Open Reading Frames (ORFs) in a DNA sequence using Biopython, searching both forward and reverse complement strands.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "DNA sequence to analyze",
+          "name": "sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Minimum length of ORF in nucleotides",
+          "name": "min_length",
+          "type": "int"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": false,
+          "description": "Whether to search the reverse complement strand",
+          "name": "search_reverse",
+          "type": "bool"
+        },
+        {
+          "default": false,
+          "description": "Whether to filter out ORFs with same end but later start",
+          "name": "filter_subsets",
+          "type": "bool"
+        }
+      ]
+    },
+    "annotate_plasmid": {
+      "module": "molecular_biology",
+      "description": "Annotate a DNA sequence using pLannotate's command-line interface.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The DNA sequence to annotate",
+          "name": "sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Whether the sequence is circular",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "get_gene_coding_sequence": {
+      "module": "molecular_biology",
+      "description": "Retrieves the coding sequence(s) of a specified gene from NCBI Entrez.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the gene",
+          "name": "gene_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the organism",
+          "name": "organism",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Email address for NCBI Entrez (recommended)",
+          "name": "email",
+          "type": "str"
+        }
+      ]
+    },
+    "get_plasmid_sequence": {
+      "module": "molecular_biology",
+      "description": "Unified function to retrieve plasmid sequences from either Addgene or NCBI. If is_addgene is True or identifier is numeric, uses Addgene. Otherwise searches NCBI using the plasmid name.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Either an Addgene ID or plasmid name",
+          "name": "identifier",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Force Addgene lookup if True, force NCBI if False. If None, attempts to auto-detect based on identifier format.",
+          "name": "is_addgene",
+          "type": "bool"
+        }
+      ]
+    },
+    "align_sequences": {
+      "module": "molecular_biology",
+      "description": "Align short sequences (primers) to a longer sequence, allowing for one mismatch. Checks both forward and reverse complement strands.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Target DNA sequence",
+          "name": "long_seq",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Single primer or list of primers",
+          "name": "short_seqs",
+          "type": "Union[str, List[str]]"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "pcr_simple": {
+      "module": "molecular_biology",
+      "description": "Simulate PCR amplification with given primers and sequence.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Either a sequence string or path to plasmid file",
+          "name": "sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Forward primer sequence (5' to 3')",
+          "name": "forward_primer",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Reverse primer sequence (5' to 3')",
+          "name": "reverse_primer",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": false,
+          "description": "Whether the sequence is circular",
+          "name": "circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "digest_sequence": {
+      "module": "molecular_biology",
+      "description": "Simulates restriction enzyme digestion of a DNA sequence and returns the resulting fragments with their properties.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Input DNA sequence to be digested",
+          "name": "dna_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Names of restriction enzymes to use for digestion",
+          "name": "enzyme_names",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Whether the DNA sequence is circular (True) or linear (False)",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "find_restriction_sites": {
+      "module": "molecular_biology",
+      "description": "Identifies restriction enzyme sites in a given DNA sequence for specified enzymes.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Complete input DNA sequence",
+          "name": "dna_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of restriction enzyme names to check",
+          "name": "enzymes",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Whether the DNA sequence is circular (True) or linear (False)",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "find_restriction_enzymes": {
+      "module": "molecular_biology",
+      "description": "Finds common restriction enzyme sites in a DNA sequence and returns their cut positions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "DNA sequence to analyze",
+          "name": "sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": false,
+          "description": "Whether the sequence is circular",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "find_sequence_mutations": {
+      "module": "molecular_biology",
+      "description": "Compare query sequence against reference sequence to identify mutations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The sequence being analyzed",
+          "name": "query_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "The reference sequence to compare against",
+          "name": "reference_sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1,
+          "description": "The start position of the query sequence",
+          "name": "query_start",
+          "type": "int"
+        }
+      ]
+    },
+    "design_knockout_sgrna": {
+      "module": "molecular_biology",
+      "description": "Design sgRNAs for CRISPR knockout by searching pre-computed sgRNA libraries. Returns optimized guide RNAs for targeting a specific gene.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Target gene symbol/name (e.g., \"EGFR\", \"TP53\")",
+          "name": "gene_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the data lake",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "human",
+          "description": "Target organism species",
+          "name": "species",
+          "type": "str"
+        },
+        {
+          "default": 1,
+          "description": "Number of guides to return",
+          "name": "num_guides",
+          "type": "int"
+        }
+      ]
+    },
+    "get_oligo_annealing_protocol": {
+      "module": "molecular_biology",
+      "description": "Return a standard protocol for annealing oligonucleotides without phosphorylation.",
+      "required_parameters": [],
+      "optional_parameters": []
+    },
+    "get_golden_gate_assembly_protocol": {
+      "module": "molecular_biology",
+      "description": "Return a customized protocol for Golden Gate assembly based on the number of inserts and specific DNA sequences.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Type IIS restriction enzyme to be used",
+          "name": "enzyme_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Length of the destination vector in bp",
+          "name": "vector_length",
+          "type": "int"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1,
+          "description": "Number of inserts to be assembled",
+          "name": "num_inserts",
+          "type": "int"
+        },
+        {
+          "default": 75.0,
+          "description": "Amount of vector to use in ng",
+          "name": "vector_amount_ng",
+          "type": "float"
+        },
+        {
+          "default": null,
+          "description": "List of insert lengths in bp",
+          "name": "insert_lengths",
+          "type": "List[int]"
+        },
+        {
+          "default": false,
+          "description": "Whether this is for library preparation",
+          "name": "is_library_prep",
+          "type": "bool"
+        }
+      ]
+    },
+    "get_bacterial_transformation_protocol": {
+      "module": "molecular_biology",
+      "description": "Return a standard protocol for bacterial transformation.",
+      "required_parameters": [],
+      "optional_parameters": [
+        {
+          "default": "ampicillin",
+          "description": "Selection antibiotic",
+          "name": "antibiotic",
+          "type": "str"
+        },
+        {
+          "default": false,
+          "description": "Whether the sequence contains repetitive elements",
+          "name": "is_repetitive",
+          "type": "bool"
+        }
+      ]
+    },
+    "design_primer": {
+      "module": "molecular_biology",
+      "description": "Design a single primer within the given sequence window.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Target DNA sequence",
+          "name": "sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Starting position for primer search",
+          "name": "start_pos",
+          "type": "int"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 20,
+          "description": "Length of the primer to design",
+          "name": "primer_length",
+          "type": "int"
+        },
+        {
+          "default": 0.4,
+          "description": "Minimum GC content",
+          "name": "min_gc",
+          "type": "float"
+        },
+        {
+          "default": 0.6,
+          "description": "Maximum GC content",
+          "name": "max_gc",
+          "type": "float"
+        },
+        {
+          "default": 55.0,
+          "description": "Minimum melting temperature in \u00b0C",
+          "name": "min_tm",
+          "type": "float"
+        },
+        {
+          "default": 65.0,
+          "description": "Maximum melting temperature in \u00b0C",
+          "name": "max_tm",
+          "type": "float"
+        },
+        {
+          "default": 100,
+          "description": "Size of window to search for primers",
+          "name": "search_window",
+          "type": "int"
+        }
+      ]
+    },
+    "design_verification_primers": {
+      "module": "molecular_biology",
+      "description": "Design Sanger sequencing primers to verify a specific region in a plasmid. First tries to use primers from an existing primer pool. If they cannot fully cover the region, designs additional primers as needed.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The complete plasmid sequence",
+          "name": "plasmid_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Start and end positions to verify (0-based indexing)",
+          "name": "target_region",
+          "type": "Tuple[int, int]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "List of existing primers with their sequences and optional names",
+          "name": "existing_primers",
+          "type": "Optional[List[Dict[str, str]]]"
+        },
+        {
+          "default": true,
+          "description": "Whether the plasmid is circular",
+          "name": "is_circular",
+          "type": "bool"
+        },
+        {
+          "default": 800,
+          "description": "Typical read length for each primer in base pairs",
+          "name": "coverage_length",
+          "type": "int"
+        },
+        {
+          "default": 20,
+          "description": "Length of newly designed primers",
+          "name": "primer_length",
+          "type": "int"
+        },
+        {
+          "default": 0.4,
+          "description": "Minimum GC content for new primers",
+          "name": "min_gc",
+          "type": "float"
+        },
+        {
+          "default": 0.6,
+          "description": "Maximum GC content for new primers",
+          "name": "max_gc",
+          "type": "float"
+        },
+        {
+          "default": 55.0,
+          "description": "Minimum melting temperature in \u00b0C",
+          "name": "min_tm",
+          "type": "float"
+        },
+        {
+          "default": 65.0,
+          "description": "Maximum melting temperature in \u00b0C",
+          "name": "max_tm",
+          "type": "float"
+        }
+      ]
+    },
+    "design_golden_gate_oligos": {
+      "module": "molecular_biology",
+      "description": "Design complementary oligonucleotides with Type IIS restriction enzyme overhangs for Golden Gate assembly based on restriction site analysis of the backbone.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Complete backbone sequence",
+          "name": "backbone_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Sequence to be inserted (e.g., sgRNA target sequence)",
+          "name": "insert_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type IIS restriction enzyme to be used",
+          "name": "enzyme_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Whether the backbone is circular",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "golden_gate_assembly": {
+      "module": "molecular_biology",
+      "description": "Simulate Golden Gate assembly to predict final construct sequences from backbone and fragment sequences.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Complete backbone sequence",
+          "name": "backbone_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type IIS restriction enzyme to be used (e.g., \"BsmBI\", \"BsaI\")",
+          "name": "enzyme_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of fragments to insert, containing one of: name + fwd_oligo + rev_oligo (oligo pair with matching overhangs) or name + sequence (double-stranded DNA fragment containing restriction sites)",
+          "name": "fragments",
+          "type": "List[Dict[str, str]]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Whether the backbone is circular",
+          "name": "is_circular",
+          "type": "bool"
+        }
+      ]
+    },
+    "analyze_aortic_diameter_and_geometry": {
+      "module": "pathology",
+      "description": "Analyze aortic diameter and geometry from cardiovascular imaging data to measure aortic root diameter, ascending aorta diameter, and calculate geometric parameters such as tortuosity and dilation indices.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the cardiovascular imaging data (DICOM, JPG, PNG)",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_atp_luminescence_assay": {
+      "module": "pathology",
+      "description": "Analyze luminescence-based ATP assay data to determine intracellular ATP concentration.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV file containing luminescence readings from samples with columns for Sample_ID and Luminescence_Value",
+          "name": "data_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to CSV file containing standard curve data with columns for ATP_Concentration (in nM) and Luminescence_Value",
+          "name": "standard_curve_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "cell_count",
+          "description": "Method used to normalize ATP values, either cell_count or protein_content",
+          "name": "normalization_method",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to CSV file with normalization data or dictionary with sample IDs as keys and normalization values",
+          "name": "normalization_data",
+          "type": "str or dict"
+        }
+      ]
+    },
+    "analyze_thrombus_histology": {
+      "module": "pathology",
+      "description": "Analyze histological images of thrombus samples stained with H&E to identify and quantify different thrombus components (fresh, cellular lysis, endothelialization, fibroblastic reaction).",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the histological image of thrombus sample stained with H&E",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_intracellular_calcium_with_rhod2": {
+      "module": "pathology",
+      "description": "Analyzes intracellular calcium concentration using Rhod-2 fluorescent indicator from microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the background image (no cells, just media)",
+          "name": "background_image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the control image (cells without calcium stimulus)",
+          "name": "control_image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the sample image (cells with calcium stimulus)",
+          "name": "sample_image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "quantify_corneal_nerve_fibers": {
+      "module": "pathology",
+      "description": "Quantify the volume/density of immunofluorescence-labeled corneal nerve fibers.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the immunofluorescence microscopy image file",
+          "name": "image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type of nerve fiber marker (e.g., '\u03b2III-tubulin', 'SP', 'L1CAM')",
+          "name": "marker_type",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "otsu",
+          "description": "Method for thresholding ('otsu', 'adaptive', 'manual')",
+          "name": "threshold_method",
+          "type": "str"
+        }
+      ]
+    },
+    "segment_and_quantify_cells_in_multiplexed_images": {
+      "module": "pathology",
+      "description": "Segment cells and quantify protein expression levels from multichannel tissue images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the multichannel image file (tiff stack or similar format)",
+          "name": "image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of marker names corresponding to each channel in the image",
+          "name": "markers_list",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 0,
+          "description": "Index of the nuclear marker channel (typically DAPI)",
+          "name": "nuclear_channel_index",
+          "type": "int"
+        },
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_bone_microct_morphometry": {
+      "module": "pathology",
+      "description": "Analyze bone microarchitecture parameters from 3D micro-CT images to calculate bone mineral density, bone volume, trabecular number, thickness, and separation.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the micro-CT scan data file (TIFF stack or similar 3D format)",
+          "name": "input_file_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Threshold value for bone segmentation. If None, Otsu's method will be used",
+          "name": "threshold_value",
+          "type": "float"
+        }
+      ]
+    },
+    "run_diffdock_with_smiles": {
+      "module": "pharmacology",
+      "description": "Run DiffDock molecular docking using a protein PDB file and a SMILES string for the ligand, executing the process in a Docker container.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the protein PDB file for docking",
+          "name": "pdb_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "SMILES string representation of the ligand molecule",
+          "name": "smiles_string",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Local directory path where docking results will be saved",
+          "name": "local_output_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 0,
+          "description": "GPU device ID to use for computation",
+          "name": "gpu_device",
+          "type": "int"
+        },
+        {
+          "default": true,
+          "description": "Whether to use GPU acceleration for docking",
+          "name": "use_gpu",
+          "type": "bool"
+        }
+      ]
+    },
+    "docking_autodock_vina": {
+      "module": "pharmacology",
+      "description": "Performs molecular docking using AutoDock Vina to predict binding affinities between small molecules and a receptor protein.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of SMILES strings representing small molecules to dock",
+          "name": "smiles_list",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Path to the receptor protein structure PDB file",
+          "name": "receptor_pdb_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "3D coordinates [x, y, z] of the docking box center",
+          "name": "box_center",
+          "type": "List[float]"
+        },
+        {
+          "default": null,
+          "description": "Dimensions [x, y, z] of the docking box",
+          "name": "box_size",
+          "type": "List[float]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1,
+          "description": "Number of CPU cores to use for docking",
+          "name": "ncpu",
+          "type": "int"
+        }
+      ]
+    },
+    "run_autosite": {
+      "module": "pharmacology",
+      "description": "Runs AutoSite on a PDB file to identify potential binding sites and returns a research log with the results.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the input PDB file",
+          "name": "pdb_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Directory where AutoSite results will be saved",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 1.0,
+          "description": "Grid spacing parameter for AutoSite calculation",
+          "name": "spacing",
+          "type": "float"
+        }
+      ]
+    },
+    "retrieve_topk_repurposing_drugs_from_disease_txgnn": {
+      "module": "pharmacology",
+      "description": "Computes TxGNN model predictions for drug repurposing and returns the top predicted drugs with their scores for a given disease.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The name of the disease for which to retrieve drug predictions",
+          "name": "disease_name",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the data lake",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 5,
+          "description": "The number of top drug predictions to return",
+          "name": "k",
+          "type": "int"
+        }
+      ]
+    },
+    "predict_admet_properties": {
+      "module": "pharmacology",
+      "description": "Predicts ADMET (Absorption, Distribution, Metabolism, Excretion, Toxicity) properties for a list of compounds using pretrained models.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of SMILES strings representing chemical compounds to analyze",
+          "name": "smiles_list",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "MPNN",
+          "description": "Type of model to use for ADMET prediction (options: 'MPNN', 'CNN', 'Morgan')",
+          "name": "ADMET_model_type",
+          "type": "str"
+        }
+      ]
+    },
+    "predict_binding_affinity_protein_1d_sequence": {
+      "module": "pharmacology",
+      "description": "Predicts binding affinity between small molecules and a protein sequence using pre-trained deep learning models.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of SMILES strings representing chemical compounds",
+          "name": "smiles_list",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Protein sequence in amino acid format",
+          "name": "amino_acid_sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "MPNN-CNN",
+          "description": "Deep learning model architecture to use for binding affinity prediction (options: CNN-CNN, MPNN-CNN, Morgan-CNN, Morgan-AAC, Daylight-AAC)",
+          "name": "affinity_model_type",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_accelerated_stability_of_pharmaceutical_formulations": {
+      "module": "pharmacology",
+      "description": "Analyzes the stability of pharmaceutical formulations under accelerated storage conditions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of formulation dictionaries containing name, active ingredient, concentration, and excipients",
+          "name": "formulations",
+          "type": "List[dict]"
+        },
+        {
+          "default": null,
+          "description": "List of storage condition dictionaries containing temperature, humidity (optional), and description",
+          "name": "storage_conditions",
+          "type": "List[dict]"
+        },
+        {
+          "default": null,
+          "description": "List of time points in days to evaluate stability",
+          "name": "time_points",
+          "type": "List[int]"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "run_3d_chondrogenic_aggregate_assay": {
+      "module": "pharmacology",
+      "description": "Generates a detailed protocol for performing a 3D chondrogenic aggregate culture assay to evaluate compounds' effects on chondrogenesis.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary with cell information including 'source', 'passage_number', and 'cell_density'",
+          "name": "chondrocyte_cells",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "List of compounds to test, each with 'name', 'concentration', and 'vehicle' keys",
+          "name": "test_compounds",
+          "type": "list of dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 21,
+          "description": "Total duration of the culture period in days",
+          "name": "culture_duration_days",
+          "type": "int"
+        },
+        {
+          "default": 7,
+          "description": "Interval in days between measurements",
+          "name": "measurement_intervals",
+          "type": "int"
+        }
+      ]
+    },
+    "grade_adverse_events_using_vcog_ctcae": {
+      "module": "pharmacology",
+      "description": "Grade and monitor adverse events in animal studies using the VCOG-CTCAE standard.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to a CSV file containing clinical evaluation data with columns: subject_id, time_point, symptom, severity, measurement (optional)",
+          "name": "clinical_data_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "analyze_radiolabeled_antibody_biodistribution": {
+      "module": "pharmacology",
+      "description": "Analyze biodistribution and pharmacokinetic profile of radiolabeled antibodies.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points (hours) at which measurements were taken",
+          "name": "time_points",
+          "type": "List[float] or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Dictionary where keys are tissue names and values are lists/arrays of %IA/g measurements corresponding to time_points. Must include 'tumor' as one of the keys",
+          "name": "tissue_data",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "estimate_alpha_particle_radiotherapy_dosimetry": {
+      "module": "pharmacology",
+      "description": "Estimate radiation absorbed doses to tumor and normal organs for alpha-particle radiotherapeutics using the Medical Internal Radiation Dose (MIRD) schema.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing organ/tissue names as keys and a list of time-activity measurements as values. Each measurement should be a tuple of (time_hours, percent_injected_activity). Must include entries for all relevant organs including 'tumor'.",
+          "name": "biodistribution_data",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing radiation parameters for the alpha-emitting radionuclide including 'radionuclide', 'half_life_hours', 'energy_per_decay_MeV', 'radiation_weighting_factor', and 'S_factors'.",
+          "name": "radiation_parameters",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "dosimetry_results.csv",
+          "description": "Filename to save the dosimetry results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_mwas_cyp2c19_metabolizer_status": {
+      "module": "pharmacology",
+      "description": "Perform a Methylome-wide Association Study (MWAS) to identify CpG sites significantly associated with CYP2C19 metabolizer status.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing DNA methylation beta values. Rows should be samples, columns should be CpG sites.",
+          "name": "methylation_data_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing CYP2C19 metabolizer status for each sample. Should have a sample ID column and a status column.",
+          "name": "metabolizer_status_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing covariates to adjust for in the regression model (e.g., age, sex, smoking status).",
+          "name": "covariates_path",
+          "type": "str"
+        },
+        {
+          "default": 0.05,
+          "description": "P-value threshold for significance after multiple testing correction.",
+          "name": "pvalue_threshold",
+          "type": "float"
+        },
+        {
+          "default": "significant_cpg_sites.csv",
+          "description": "Filename to save significant CpG sites.",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "calculate_physicochemical_properties": {
+      "module": "pharmacology",
+      "description": "Calculate key physicochemical properties of a drug candidate molecule.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The molecular structure in SMILES format",
+          "name": "smiles_string",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "analyze_xenograft_tumor_growth_inhibition": {
+      "module": "pharmacology",
+      "description": "Analyze tumor growth inhibition in xenograft models across different treatment groups.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to CSV or TSV file containing tumor volume measurements",
+          "name": "data_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the column containing time points",
+          "name": "time_column",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the column containing tumor volume measurements",
+          "name": "volume_column",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the column containing treatment group labels",
+          "name": "group_column",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Name of the column containing subject/mouse identifiers",
+          "name": "subject_column",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_western_blot": {
+      "module": "pharmacology",
+      "description": "Performs densitometric analysis of Western blot images to quantify relative protein expression.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the Western blot image file",
+          "name": "blot_image_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of dictionaries containing information about target protein bands, each with 'name' and 'roi' (region of interest as [x, y, width, height])",
+          "name": "target_bands",
+          "type": "list of dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary with 'name' and 'roi' for the loading control protein (e.g., \u03b2-actin, GAPDH)",
+          "name": "loading_control_band",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing information about antibodies used with 'primary' and 'secondary' keys",
+          "name": "antibody_info",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "query_drug_interactions": {
+      "module": "pharmacology",
+      "description": "Query drug-drug interactions from DDInter database to identify potential interactions, mechanisms, and severity levels between specified drugs.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of drug names to query for interactions",
+          "name": "drug_names",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Filter results by specific interaction types",
+          "name": "interaction_types",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Filter results by severity levels (Major, Moderate, Minor)",
+          "name": "severity_levels",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Path to data lake directory containing DDInter data",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ]
+    },
+    "check_drug_combination_safety": {
+      "module": "pharmacology",
+      "description": "Analyze safety of a drug combination for potential interactions using DDInter database with comprehensive risk assessment and clinical recommendations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of drugs to analyze for combination safety",
+          "name": "drug_list",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Include interaction mechanism descriptions in results",
+          "name": "include_mechanisms",
+          "type": "bool"
+        },
+        {
+          "default": true,
+          "description": "Include management recommendations in results",
+          "name": "include_management",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "Path to data lake directory containing DDInter data",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_interaction_mechanisms": {
+      "module": "pharmacology",
+      "description": "Analyze interaction mechanisms between two specific drugs providing detailed mechanistic insights and clinical significance assessment.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Pair of drug names to analyze (drug1, drug2)",
+          "name": "drug_pair",
+          "type": "Tuple[str, str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": true,
+          "description": "Include detailed mechanistic information in analysis",
+          "name": "detailed_analysis",
+          "type": "bool"
+        },
+        {
+          "default": null,
+          "description": "Path to data lake directory containing DDInter data",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ]
+    },
+    "find_alternative_drugs_ddinter": {
+      "module": "pharmacology",
+      "description": "Find alternative drugs that don't interact with contraindicated drugs using DDInter database for safer therapeutic substitutions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Drug to find alternatives for",
+          "name": "target_drug",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of drugs to avoid interactions with",
+          "name": "contraindicated_drugs",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Limit search to specific therapeutic class",
+          "name": "therapeutic_class",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to data lake directory containing DDInter data",
+          "name": "data_lake_path",
+          "type": "str"
+        }
+      ]
+    },
+    "query_fda_adverse_events": {
+      "module": "pharmacology",
+      "description": "Query FDA adverse event reports for specific drugs from the OpenFDA database to identify potential safety signals, reaction patterns, and regulatory intelligence.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the drug to query for adverse events",
+          "name": "drug_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Optional date range as (start_date, end_date) in YYYY-MM-DD format",
+          "name": "date_range",
+          "type": "Tuple[str, str]"
+        },
+        {
+          "default": null,
+          "description": "Optional filter by severity levels ['serious', 'non_serious']",
+          "name": "severity_filter",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Optional filter by outcomes ['life_threatening', 'hospitalization', 'death']",
+          "name": "outcome_filter",
+          "type": "List[str]"
+        },
+        {
+          "default": 100,
+          "description": "Maximum number of results to return",
+          "name": "limit",
+          "type": "int"
+        }
+      ]
+    },
+    "get_fda_drug_label_info": {
+      "module": "pharmacology",
+      "description": "Retrieve FDA drug label information including indications, contraindications, warnings, and dosage information from the OpenFDA database.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the drug to query for label information",
+          "name": "drug_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Optional list of specific sections to retrieve ['indications_and_usage', 'contraindications', 'warnings', 'dosage_and_administration']",
+          "name": "sections",
+          "type": "List[str]"
+        }
+      ]
+    },
+    "check_fda_drug_recalls": {
+      "module": "pharmacology",
+      "description": "Check for FDA drug recalls and enforcement actions from the OpenFDA database to identify safety concerns and regulatory actions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Name of the drug to check for recalls",
+          "name": "drug_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Optional filter by recall class ['Class I', 'Class II', 'Class III']",
+          "name": "classification",
+          "type": "List[str]"
+        },
+        {
+          "default": null,
+          "description": "Optional date range for recalls as (start_date, end_date)",
+          "name": "date_range",
+          "type": "Tuple[str, str]"
+        }
+      ]
+    },
+    "analyze_fda_safety_signals": {
+      "module": "pharmacology",
+      "description": "Analyze safety signals across multiple drugs using OpenFDA adverse event data to identify patterns and comparative risk profiles.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of drug names to analyze for safety signals",
+          "name": "drug_list",
+          "type": "List[str]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Optional comparison time period as (start_date, end_date)",
+          "name": "comparison_period",
+          "type": "Tuple[str, str]"
+        },
+        {
+          "default": 2.0,
+          "description": "Threshold for signal detection",
+          "name": "signal_threshold",
+          "type": "float"
+        }
+      ]
+    },
+    "reconstruct_3d_face_from_mri": {
+      "module": "physiology",
+      "description": "Generate a 3D model of facial anatomy from MRI scans of the head and neck.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the MRI scan file (NIfTI format: .nii or .nii.gz)",
+          "name": "mri_file_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory where output files will be saved",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "subject",
+          "description": "Identifier for the subject, used in output filenames",
+          "name": "subject_id",
+          "type": "str"
+        },
+        {
+          "default": 300,
+          "description": "Threshold value for initial segmentation of facial tissues",
+          "name": "threshold_value",
+          "type": "int"
+        }
+      ]
+    },
+    "analyze_abr_waveform_p1_metrics": {
+      "module": "physiology",
+      "description": "Extracts P1 amplitude and latency from Auditory Brainstem Response (ABR) waveform data.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points of the ABR recording in milliseconds",
+          "name": "time_ms",
+          "type": "array-like"
+        },
+        {
+          "default": null,
+          "description": "Amplitude values of the ABR recording in microvolts",
+          "name": "amplitude_uv",
+          "type": "array-like"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "analyze_ciliary_beat_frequency": {
+      "module": "physiology",
+      "description": "Analyze ciliary beat frequency from high-speed video microscopy data using FFT analysis.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the high-speed video microscopy file of ciliary beating",
+          "name": "video_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 5,
+          "description": "Number of regions of interest to analyze",
+          "name": "roi_count",
+          "type": "int"
+        },
+        {
+          "default": 0,
+          "description": "Minimum frequency to consider in Hz",
+          "name": "min_freq",
+          "type": "float"
+        },
+        {
+          "default": 30,
+          "description": "Maximum frequency to consider in Hz",
+          "name": "max_freq",
+          "type": "float"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_protein_colocalization": {
+      "module": "physiology",
+      "description": "Analyze colocalization between two fluorescently labeled proteins in microscopy images.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the first channel image file (fluorescent protein 1)",
+          "name": "channel1_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the second channel image file (fluorescent protein 2)",
+          "name": "channel2_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./output",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "otsu",
+          "description": "Method for thresholding images ('otsu', 'li', or 'yen')",
+          "name": "threshold_method",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_cosinor_analysis": {
+      "module": "physiology",
+      "description": "Performs cosinor analysis on physiological time series data to characterize circadian rhythms.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points of the measurements in hours",
+          "name": "time_data",
+          "type": "array-like"
+        },
+        {
+          "default": null,
+          "description": "Physiological measurements corresponding to each time point",
+          "name": "physiological_data",
+          "type": "array-like"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 24.0,
+          "description": "Period of the rhythm in hours, default is 24 hours for circadian rhythms",
+          "name": "period",
+          "type": "float"
+        }
+      ]
+    },
+    "calculate_brain_adc_map": {
+      "module": "physiology",
+      "description": "Calculate Apparent Diffusion Coefficient (ADC) map from diffusion-weighted MRI data using monoexponential diffusion model.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the 4D NIfTI file containing diffusion-weighted MRI data",
+          "name": "dwi_file_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "List of b-values corresponding to each volume in the 4D DWI data",
+          "name": "b_values",
+          "type": "List[float]"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "adc_map.nii.gz",
+          "description": "Path where the output ADC map will be saved",
+          "name": "output_path",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to a binary mask file to limit ADC calculation to brain regions",
+          "name": "mask_file_path",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_endolysosomal_calcium_dynamics": {
+      "module": "physiology",
+      "description": "Analyze calcium dynamics in endo-lysosomal compartments using ELGA/ELGA1 probe data.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points of the measurements in seconds",
+          "name": "time_points",
+          "type": "numpy.ndarray or list"
+        },
+        {
+          "default": null,
+          "description": "Luminescence intensity values from ELGA/ELGA1 probes corresponding to Ca2+ levels",
+          "name": "luminescence_values",
+          "type": "numpy.ndarray or list"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Time point (in seconds) when treatment/stimulus was applied",
+          "name": "treatment_time",
+          "type": "float"
+        },
+        {
+          "default": "",
+          "description": "Type of cells used in the experiment",
+          "name": "cell_type",
+          "type": "str"
+        },
+        {
+          "default": "",
+          "description": "Name of the treatment or stimulus applied",
+          "name": "treatment_name",
+          "type": "str"
+        },
+        {
+          "default": "calcium_analysis_results.txt",
+          "description": "Name of the file to save detailed analysis results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_fatty_acid_composition_by_gc": {
+      "module": "physiology",
+      "description": "Analyzes fatty acid composition in tissue samples using gas chromatography data.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the CSV file containing gas chromatography data with columns 'retention_time' and 'peak_area'",
+          "name": "gc_data_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Type of tissue sample (e.g., liver, kidney, heart, muscle, adipose)",
+          "name": "tissue_type",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Identifier for the sample being analyzed",
+          "name": "sample_id",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory where result files will be saved",
+          "name": "output_directory",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_hemodynamic_data": {
+      "module": "physiology",
+      "description": "Analyzes raw blood pressure data to calculate key hemodynamic parameters.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Raw blood pressure measurements in mmHg",
+          "name": "pressure_data",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Data acquisition rate in Hz (samples per second)",
+          "name": "sampling_rate",
+          "type": "float"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "hemodynamic_results.csv",
+          "description": "Filename to save the calculated parameters",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_thyroid_hormone_pharmacokinetics": {
+      "module": "physiology",
+      "description": "Simulates the transport and binding of thyroid hormones across different tissue compartments using an ODE-based pharmacokinetic model.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary containing model parameters including transport_rates, binding_constants, metabolism_rates, and volumes",
+          "name": "parameters",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary of initial concentrations for all molecular species in each compartment",
+          "name": "initial_conditions",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "(0, 24)",
+          "description": "Start and end time for simulation in hours",
+          "name": "time_span",
+          "type": "tuple"
+        },
+        {
+          "default": 100,
+          "description": "Number of time points to output",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "quantify_amyloid_beta_plaques": {
+      "module": "physiology",
+      "description": "Analyzes an image to detect and quantify amyloid-beta plaques, returning a detailed analysis log.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the image file to be analyzed for amyloid-beta plaques",
+          "name": "image_path",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "./results",
+          "description": "Directory where results will be saved",
+          "name": "output_dir",
+          "type": "str"
+        },
+        {
+          "default": "otsu",
+          "description": "Method for image thresholding (otsu, adaptive, or manual)",
+          "name": "threshold_method",
+          "type": "str"
+        },
+        {
+          "default": 50,
+          "description": "Minimum size in pixels\u00b2 for a region to be considered a plaque",
+          "name": "min_plaque_size",
+          "type": "int"
+        },
+        {
+          "default": 127,
+          "description": "Threshold value to use when threshold_method is manual",
+          "name": "manual_threshold",
+          "type": "int"
+        }
+      ]
+    },
+    "run_python_repl": {
+      "module": "support_tools",
+      "description": "Executes the provided Python command in the notebook environment and returns the output.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Python command to execute in the notebook environment",
+          "name": "command",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "read_function_source_code": {
+      "module": "support_tools",
+      "description": "Read the source code of a function from any module path.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Fully qualified function name (e.g., 'bioagentos.tool.support_tools.write_python_code')",
+          "name": "function_name",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "engineer_bacterial_genome_for_therapeutic_delivery": {
+      "module": "synthetic_biology",
+      "description": "Engineer a bacterial genome by integrating therapeutic genetic parts for therapeutic delivery.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the file containing the bacterial genome sequence in FASTA format",
+          "name": "bacterial_genome_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing genetic parts to be integrated (promoters, genes, terminators, cargo)",
+          "name": "genetic_parts",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "analyze_bacterial_growth_rate": {
+      "module": "synthetic_biology",
+      "description": "Analyze bacterial growth data and extract growth parameters from OD600 measurements.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Time points at which OD600 measurements were taken (in hours)",
+          "name": "time_points",
+          "type": "List or numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Optical density (OD600) measurements corresponding to each time point",
+          "name": "od_measurements",
+          "type": "List or numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "Unknown strain",
+          "description": "Name of the bacterial strain being analyzed",
+          "name": "strain_name",
+          "type": "str"
+        },
+        {
+          "default": "./",
+          "description": "Directory where to save the output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_barcode_sequencing_data": {
+      "module": "synthetic_biology",
+      "description": "Analyze sequencing data to extract, quantify and determine lineage relationships of barcodes.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the input sequencing file in FASTQ or FASTA format",
+          "name": "input_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Regular expression pattern to identify barcodes. If None, will use flanking sequences",
+          "name": "barcode_pattern",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "5' flanking sequence of the barcode region",
+          "name": "flanking_seq_5prime",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "3' flanking sequence of the barcode region",
+          "name": "flanking_seq_3prime",
+          "type": "str"
+        },
+        {
+          "default": 5,
+          "description": "Minimum count threshold for considering a barcode",
+          "name": "min_count",
+          "type": "int"
+        },
+        {
+          "default": "./results",
+          "description": "Directory to save output files",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "analyze_bifurcation_diagram": {
+      "module": "synthetic_biology",
+      "description": "Performs bifurcation analysis on a dynamical system and generates a bifurcation diagram.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "A 2D array where each row represents a time series for a specific parameter value. Shape should be (n_parameter_values, n_time_points).",
+          "name": "time_series_data",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "1D array of parameter values corresponding to each time series. Shape should be (n_parameter_values,).",
+          "name": "parameter_values",
+          "type": "numpy.ndarray"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "Dynamical System",
+          "description": "Name of the dynamical system being analyzed, used for plot titles.",
+          "name": "system_name",
+          "type": "str"
+        },
+        {
+          "default": "./",
+          "description": "Directory to save the output files.",
+          "name": "output_dir",
+          "type": "str"
+        }
+      ]
+    },
+    "create_biochemical_network_sbml_model": {
+      "module": "synthetic_biology",
+      "description": "Generate a mathematical model of a biochemical network in SBML format.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "List of dictionaries representing reactions with id, name, reactants, products, and reversible properties",
+          "name": "reaction_network",
+          "type": "List[dict]"
+        },
+        {
+          "default": null,
+          "description": "Dictionary mapping reaction IDs to kinetic law parameters with law_type and parameters",
+          "name": "kinetic_parameters",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "biochemical_model.xml",
+          "description": "File path to save the SBML model",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "optimize_codons_for_heterologous_expression": {
+      "module": "synthetic_biology",
+      "description": "Analyzes and optimizes a DNA/RNA sequence for improved expression in a heterologous host organism.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The DNA or RNA sequence of the target gene to be optimized. Should contain complete codons (length divisible by 3).",
+          "name": "target_sequence",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Dictionary mapping codons to their usage frequency in the host organism. Format: {'AUG': 0.8, 'GCC': 0.6, ...} or {'ATG': 0.8, 'GCC': 0.6, ...}",
+          "name": "host_codon_usage",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "simulate_gene_circuit_with_growth_feedback": {
+      "module": "synthetic_biology",
+      "description": "Simulate gene regulatory circuit dynamics with growth feedback.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Adjacency matrix representing the gene circuit topology. Positive values indicate activation, negative values indicate repression. Shape should be (n_genes, n_genes) where n_genes is the number of genes in the circuit.",
+          "name": "circuit_topology",
+          "type": "numpy.ndarray"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing kinetic parameters: 'basal_rates', 'degradation_rates', 'hill_coefficients', and 'threshold_constants' for the gene circuit.",
+          "name": "kinetic_params",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary containing growth-related parameters: 'max_growth_rate', 'growth_inhibition', and 'gene_growth_weights'.",
+          "name": "growth_params",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 100,
+          "description": "Total simulation time",
+          "name": "simulation_time",
+          "type": "float"
+        },
+        {
+          "default": 1000,
+          "description": "Number of time points to sample",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "identify_fas_functional_domains": {
+      "module": "synthetic_biology",
+      "description": "Identifies functional domains within a Fatty Acid Synthase (FAS) sequence and predicts their roles.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "The nucleotide or protein sequence of a FAS gene",
+          "name": "sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "protein",
+          "description": "Type of sequence provided - \"protein\" or \"nucleotide\"",
+          "name": "sequence_type",
+          "type": "str"
+        },
+        {
+          "default": "fas_domains_report.txt",
+          "description": "Name of the output file to save the detailed domain report",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "perform_flux_balance_analysis": {
+      "module": "systems_biology",
+      "description": "Perform Flux Balance Analysis (FBA) on a genome-scale metabolic network model and return a research log of the process and results.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the metabolic model file (SBML or JSON format)",
+          "name": "model_file",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary of reaction constraints where keys are reaction IDs and values are tuples of (lower_bound, upper_bound)",
+          "name": "constraints",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Reaction ID to use as the objective function (e.g., biomass reaction)",
+          "name": "objective_reaction",
+          "type": "str"
+        },
+        {
+          "default": "fba_results.csv",
+          "description": "File name to save the flux distribution results",
+          "name": "output_file",
+          "type": "str"
+        }
+      ]
+    },
+    "model_protein_dimerization_network": {
+      "module": "systems_biology",
+      "description": "Model protein dimerization networks to find equilibrium concentrations of dimers.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary mapping monomer names to their initial concentrations (in arbitrary units)",
+          "name": "monomer_concentrations",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary mapping dimer names (as 'A-B' strings) to their association constants (Ka)",
+          "name": "dimerization_affinities",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "List of (monomer1, monomer2) pairs that can form dimers",
+          "name": "network_topology",
+          "type": "list"
+        }
+      ],
+      "optional_parameters": []
+    },
+    "simulate_metabolic_network_perturbation": {
+      "module": "systems_biology",
+      "description": "Construct and simulate kinetic models of metabolic networks and analyze their responses to perturbations.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the COBRA model file (SBML format)",
+          "name": "model_file",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Dictionary mapping metabolite IDs to their initial concentrations",
+          "name": "initial_concentrations",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary with keys 'time' (float), 'metabolite' (str), and 'factor' (float) for perturbation details",
+          "name": "perturbation_params",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 100,
+          "description": "Total simulation time",
+          "name": "simulation_time",
+          "type": "float"
+        },
+        {
+          "default": 1000,
+          "description": "Number of time points to simulate",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "simulate_protein_signaling_network": {
+      "module": "systems_biology",
+      "description": "Simulate protein signaling network dynamics using ODE-based logic modeling with normalized Hill functions.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Dictionary defining the network topology. Each key is a target protein and its value is a list of tuples (regulator, regulation_type) where regulation_type is 1 for activation and -1 for inhibition.",
+          "name": "network_structure",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary of reaction parameters. Keys are tuples (regulator, target) and values are dictionaries with keys 'W' (weight), 'n' (Hill coefficient), and 'EC50' (half-maximal effective concentration).",
+          "name": "reaction_params",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Dictionary of species parameters. Keys are protein names and values are dictionaries with keys 'tau' (time constant), 'y0' (initial concentration), and 'ymax' (maximum concentration).",
+          "name": "species_params",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 100,
+          "description": "Total simulation time in arbitrary time units.",
+          "name": "simulation_time",
+          "type": "float"
+        },
+        {
+          "default": 1000,
+          "description": "Number of time points for the simulation.",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "compare_protein_structures": {
+      "module": "systems_biology",
+      "description": "Compares two protein structures to identify structural differences and conformational changes.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Path to the first PDB file",
+          "name": "pdb_file1",
+          "type": "str"
+        },
+        {
+          "default": null,
+          "description": "Path to the second PDB file",
+          "name": "pdb_file2",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": "A",
+          "description": "Chain ID to analyze in the first structure",
+          "name": "chain_id1",
+          "type": "str"
+        },
+        {
+          "default": "A",
+          "description": "Chain ID to analyze in the second structure",
+          "name": "chain_id2",
+          "type": "str"
+        },
+        {
+          "default": "protein_comparison",
+          "description": "Prefix for output files",
+          "name": "output_prefix",
+          "type": "str"
+        }
+      ]
+    },
+    "simulate_renin_angiotensin_system_dynamics": {
+      "module": "systems_biology",
+      "description": "Simulate the time-dependent concentrations of renin-angiotensin system (RAS) components.",
+      "required_parameters": [
+        {
+          "default": null,
+          "description": "Initial concentrations of RAS components with keys: 'renin', 'angiotensinogen', 'angiotensin_I', 'angiotensin_II', 'ACE2_angiotensin_II', 'angiotensin_1_7'",
+          "name": "initial_concentrations",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Kinetic rate constants with keys: 'k_ren', 'k_agt', 'k_ace', 'k_ace2', 'k_at1r', 'k_mas'",
+          "name": "rate_constants",
+          "type": "dict"
+        },
+        {
+          "default": null,
+          "description": "Parameters controlling feedback mechanisms with keys: 'fb_ang_II', 'fb_ace2'",
+          "name": "feedback_params",
+          "type": "dict"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": 48,
+          "description": "Total simulation time in hours",
+          "name": "simulation_time",
+          "type": "float"
+        },
+        {
+          "default": 100,
+          "description": "Number of time points to evaluate",
+          "name": "time_points",
+          "type": "int"
+        }
+      ]
+    },
+    "query_chatnt": {
+      "module": "systems_biology",
+      "description": "Answer functions and properties questions for DNA sequences ",
+      "required_parameters": [
+        {
+          "default": "A",
+          "description": "Questions about the DNA sequence",
+          "name": "question",
+          "type": "str"
+        },
+        {
+          "default": "A",
+          "description": "DNA sequence with potential functions",
+          "name": "sequence",
+          "type": "str"
+        }
+      ],
+      "optional_parameters": [
+        {
+          "default": -1,
+          "description": "Device to use for the ChatNT model. Default is -1 (CPU).",
+          "name": "device",
+          "type": "int"
+        }
+      ]
+    }
+  },
+  "schema_version": 1
+}

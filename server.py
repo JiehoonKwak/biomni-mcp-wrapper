@@ -74,19 +74,68 @@ BIOMNI_DATA_PATH = os.getenv("BIOMNI_DATA_PATH", "/Users/jiehoonk/DevHub/datasci
 # Initialize MCP server
 mcp = FastMCP("Biomni Tools")
 
-def create_tool_wrapper(tool_name: str, tool_func: Any, tool_info: Dict) -> Any:
-    """Create an MCP tool wrapper for a Biomni function."""
+def create_mcp_tool_function(tool_name: str, tool_func: Any, tool_info: Dict):
+    """Create a proper MCP tool function with typed parameters."""
     
-    def tool_wrapper(*args, **kwargs) -> str:
+    import inspect
+    from typing import get_type_hints
+    
+    # Get function signature and build parameter list
+    sig = inspect.signature(tool_func)
+    params = []
+    
+    # Build parameter annotations dynamically
+    annotations = {}
+    
+    # Process required parameters
+    required_params = tool_info.get('required_parameters', [])
+    for param in required_params:
+        param_name = param['name']
+        param_type = param['type']
+        
+        # Map string types to Python types
+        if param_type == 'str':
+            annotations[param_name] = str
+        elif param_type == 'int':
+            annotations[param_name] = int
+        elif param_type == 'float':
+            annotations[param_name] = float
+        elif param_type == 'bool':
+            annotations[param_name] = bool
+        else:
+            annotations[param_name] = str  # Default fallback
+    
+    # Process optional parameters
+    optional_params = tool_info.get('optional_parameters', [])
+    for param in optional_params:
+        param_name = param['name']
+        param_type = param['type']
+        default_value = param.get('default')
+        
+        # Map string types to Python types with Optional
+        if param_type == 'str':
+            annotations[param_name] = str | None
+        elif param_type == 'int':
+            annotations[param_name] = int | None
+        elif param_type == 'float':
+            annotations[param_name] = float | None  
+        elif param_type == 'bool':
+            annotations[param_name] = bool
+        else:
+            annotations[param_name] = str | None
+    
+    # Create the actual tool function
+    def mcp_tool_function(**kwargs) -> str:
         try:
-            # Add data_path parameter if the function expects it
-            import inspect
-            sig = inspect.signature(tool_func)
-            if 'data_path' in sig.parameters and 'data_path' not in kwargs:
-                kwargs['data_path'] = f"{BIOMNI_DATA_PATH}/biomni_data/data_lake"
+            # Filter out None values from optional parameters
+            filtered_kwargs = {k: v for k, v in kwargs.items() if v is not None}
             
-            # Execute the tool directly
-            result = tool_func(*args, **kwargs)
+            # Add data_path parameter if the function expects it
+            if 'data_path' in sig.parameters and 'data_path' not in filtered_kwargs:
+                filtered_kwargs['data_path'] = f"{BIOMNI_DATA_PATH}/biomni_data/data_lake"
+            
+            # Execute the tool with filtered parameters
+            result = tool_func(**filtered_kwargs)
             
             # Format result for MCP
             if isinstance(result, str):
@@ -100,11 +149,12 @@ def create_tool_wrapper(tool_name: str, tool_func: Any, tool_info: Dict) -> Any:
         except Exception as e:
             return f"❌ Error executing {tool_name}: {str(e)}"
     
-    # Set function metadata for MCP
-    tool_wrapper.__name__ = tool_name
-    tool_wrapper.__doc__ = tool_info.get('description', f'Execute {tool_name}')
+    # Set function metadata
+    mcp_tool_function.__name__ = tool_name
+    mcp_tool_function.__doc__ = tool_info.get('description', f'Execute {tool_name}')
+    mcp_tool_function.__annotations__ = annotations
     
-    return tool_wrapper
+    return mcp_tool_function
 
 def register_selected_tools():
     """Register selected Biomni tools with the MCP server."""
@@ -140,11 +190,11 @@ def register_selected_tools():
                 module = importlib.import_module(module_name)
                 tool_func = getattr(module, tool_name)
                 
-                # Create MCP tool wrapper
-                wrapper = create_tool_wrapper(tool_name, tool_func, tool_info)
+                # Create MCP tool function with proper parameter handling
+                mcp_tool_func = create_mcp_tool_function(tool_name, tool_func, tool_info)
                 
                 # Register with MCP server
-                mcp.tool()(wrapper)
+                mcp.tool()(mcp_tool_func)
                 
                 print(f"✅ Registered: {tool_name}")
                 registered_count += 1
