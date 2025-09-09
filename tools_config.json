@@ -67,7 +67,7 @@
     "biomni.tool.immunology": [
       "analyze_atac_seq_differential_accessibility",
       "quantify_cytokine_levels",
-      "analyze_antibody_binding_affinity",
+      "analyze_antibody_binding_affinity"
     ],
     "biomni.tool.literature": [
       "query_arxiv",
