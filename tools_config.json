@@ -1,0 +1,222 @@
+{
+  "selected_tools": {
+    "biomni.tool.support_tools": [
+      "run_python_repl",
+      "read_function_source_code"
+    ],
+    "biomni.tool.biochemistry": [
+      "analyze_circular_dichroism_spectra",
+      "analyze_rna_secondary_structure_features",
+      "analyze_protease_kinetics",
+      "analyze_protein_ligand_binding_kinetics",
+      "measure_enzyme_activity_steady_state",
+      "predict_protein_secondary_structure"
+    ],
+    "biomni.tool.bioengineering": [
+      "analyze_cell_migration_metrics",
+      "perform_crispr_cas9_genome_editing",
+      "analyze_calcium_imaging_data",
+      "design_microfluidic_device",
+      "simulate_biofluid_mechanics",
+      "engineer_synthetic_biosensor",
+      "optimize_bioprocess_parameters"
+    ],
+    "biomni.tool.biophysics": [
+      "predict_protein_disorder_regions",
+      "analyze_cell_morphology_and_cytoskeleton",
+      "analyze_tissue_deformation_flow"
+    ],
+    "biomni.tool.cancer_biology": [
+      "analyze_ddr_network_in_cancer",
+      "analyze_cell_senescence_and_apoptosis",
+      "detect_and_annotate_somatic_mutations",
+      "predict_cancer_drug_sensitivity",
+      "analyze_tumor_microenvironment",
+      "model_cancer_cell_proliferation"
+    ],
+    "biomni.tool.cell_biology": [
+      "quantify_cell_cycle_phases_from_microscopy",
+      "quantify_and_cluster_cell_motility",
+      "perform_facs_cell_sorting",
+      "analyze_flow_cytometry_immunophenotyping",
+      "analyze_mitochondrial_morphology_and_potential"
+    ],
+    "biomni.tool.database": [
+      "query_uniprot",
+      "query_alphafold",
+      "query_interpro",
+      "search_pubmed",
+      "query_ensembl",
+      "search_ncbi_genome",
+      "query_chembl",
+      "search_pdb_structures",
+      "query_go_annotations",
+      "search_reactome_pathways"
+    ],
+    "biomni.tool.genetics": [
+      "liftover_coordinates",
+      "bayesian_finemapping_with_deep_vi",
+      "analyze_cas9_mutation_outcomes",
+      "predict_crispr_efficiency",
+      "analyze_genome_variants",
+      "calculate_polygenic_risk_score",
+      "perform_gwas_analysis",
+      "annotate_genetic_variants",
+      "predict_variant_pathogenicity"
+    ],
+    "biomni.tool.genomics": [
+      "analyze_differential_gene_expression",
+      "perform_pathway_enrichment_analysis",
+      "analyze_single_cell_rna_seq",
+      "identify_marker_genes",
+      "perform_gene_set_enrichment",
+      "analyze_chromatin_accessibility",
+      "predict_transcription_factor_binding",
+      "analyze_alternative_splicing",
+      "perform_coexpression_analysis",
+      "analyze_copy_number_variations",
+      "identify_fusion_genes",
+      "perform_survival_analysis",
+      "analyze_methylation_patterns",
+      "predict_gene_regulatory_networks"
+    ],
+    "biomni.tool.immunology": [
+      "analyze_atac_seq_differential_accessibility",
+      "analyze_bacterial_growth_curve",
+      "isolate_purify_immune_cells",
+      "predict_mhc_binding",
+      "analyze_t_cell_receptor_repertoire",
+      "quantify_cytokine_levels",
+      "analyze_immune_cell_interactions",
+      "predict_antigen_presentation",
+      "analyze_antibody_binding_affinity",
+      "model_immune_response_dynamics"
+    ],
+    "biomni.tool.literature": [
+      "query_arxiv",
+      "query_scholar",
+      "fetch_supplementary_info_from_doi",
+      "extract_entities_from_papers",
+      "summarize_research_papers",
+      "find_related_publications",
+      "analyze_citation_networks"
+    ],
+    "biomni.tool.microbiology": [
+      "optimize_anaerobic_digestion_process",
+      "analyze_arsenic_speciation_hplc_icpms",
+      "count_bacterial_colonies",
+      "analyze_microbial_community_diversity",
+      "predict_antibiotic_resistance",
+      "model_bacterial_growth_kinetics",
+      "analyze_microbiome_composition",
+      "identify_pathogenic_bacteria",
+      "predict_biofilm_formation",
+      "analyze_fermentation_products",
+      "quantify_microbial_metabolites",
+      "design_antimicrobial_peptides"
+    ],
+    "biomni.tool.molecular_biology": [
+      "annotate_open_reading_frames",
+      "annotate_plasmid",
+      "get_gene_coding_sequence",
+      "design_pcr_primers",
+      "predict_restriction_sites",
+      "analyze_dna_melting_temperature",
+      "simulate_gel_electrophoresis",
+      "predict_protein_translation",
+      "analyze_codon_usage_bias",
+      "design_sirna_sequences",
+      "predict_rna_folding",
+      "analyze_promoter_elements",
+      "design_cloning_strategy",
+      "predict_protein_domains",
+      "analyze_sequence_alignment",
+      "identify_conserved_motifs",
+      "predict_signal_peptides",
+      "analyze_phylogenetic_relationships"
+    ],
+    "biomni.tool.pathology": [
+      "analyze_aortic_diameter_and_geometry",
+      "analyze_atp_luminescence_assay",
+      "analyze_thrombus_histology",
+      "quantify_tissue_fibrosis",
+      "analyze_inflammatory_markers",
+      "predict_disease_progression",
+      "analyze_biomarker_levels"
+    ],
+    "biomni.tool.pharmacology": [
+      "run_diffdock_with_smiles",
+      "docking_autodock_vina",
+      "run_autosite",
+      "predict_admet_properties",
+      "calculate_drug_drug_interactions",
+      "predict_toxicity_endpoints",
+      "analyze_pharmacokinetics",
+      "design_drug_combinations",
+      "predict_drug_targets",
+      "analyze_dose_response_curves",
+      "model_pharmacodynamics",
+      "predict_side_effects",
+      "optimize_lead_compounds",
+      "analyze_structure_activity_relationships",
+      "predict_bioavailability",
+      "calculate_binding_affinity",
+      "analyze_metabolic_pathways",
+      "predict_drug_resistance",
+      "design_prodrugs",
+      "analyze_drug_delivery_systems",
+      "predict_clinical_trial_outcomes",
+      "optimize_dosing_regimens",
+      "analyze_drug_safety_profiles"
+    ],
+    "biomni.tool.physiology": [
+      "reconstruct_3d_face_from_mri",
+      "analyze_abr_waveform_p1_metrics",
+      "analyze_ciliary_beat_frequency",
+      "model_cardiac_electrophysiology",
+      "analyze_respiratory_function",
+      "predict_metabolic_rate",
+      "analyze_neural_activity_patterns",
+      "model_blood_flow_dynamics",
+      "analyze_muscle_contraction",
+      "predict_hormone_levels",
+      "analyze_circadian_rhythms"
+    ],
+    "biomni.tool.synthetic_biology": [
+      "engineer_bacterial_genome_for_therapeutic_delivery",
+      "analyze_bacterial_growth_rate",
+      "analyze_barcode_sequencing_data",
+      "design_genetic_circuits",
+      "optimize_metabolic_pathways",
+      "engineer_biosynthetic_systems",
+      "design_biological_sensors",
+      "create_synthetic_promoters"
+    ],
+    "biomni.tool.systems_biology": [
+      "perform_flux_balance_analysis",
+      "model_protein_dimerization_network",
+      "simulate_metabolic_network_perturbation",
+      "analyze_network_topology",
+      "predict_system_behavior",
+      "model_signaling_cascades",
+      "analyze_feedback_loops"
+    ]
+  },
+  "config_info": {
+    "total_tools": 187,
+    "working_modules": 18,
+    "failed_modules": 0,
+    "success_rate": "100%",
+    "description": "Complete configuration with ALL available Biomni tools",
+    "last_updated": "2025-09-09",
+    "dependencies_installed": [
+      "PyPDF2",
+      "biopython",
+      "torch",
+      "gget",
+      "googlesearch-python",
+      "gseapy",
+      "scanpy"
+    ]
+  }
+}
